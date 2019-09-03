@@ -4,6 +4,16 @@ class Domande extends StatelessWidget {
   Domande(this.testoDomanda);
   @override
   Widget build(BuildContext context) {
-    return Text(testoDomanda);
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.all(15),
+      child: Text(
+        testoDomanda,
+        style: TextStyle(
+          fontSize: 28,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

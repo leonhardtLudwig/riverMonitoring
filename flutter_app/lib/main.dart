@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import './domande.dart';
+import './risposte.dart';
 /*void main(){//viene lanciato subito all'avvio dell'app  
   runApp(MyApp());//runApp è un metodo del package flutter/material.dart
                   //prende un widget che abbiamo creato e lo disegna sullo schermo
@@ -12,23 +12,44 @@ import './domande.dart';
 void main() => runApp(MyApp());
 
 //ogni widget in flutter deve estendere stateful widget o stateless widget
+final questions = const [
+  {
+    'domanda': 'Come ti chiami?',
+    'risposta': ['Franco', 'Leonardo', 'Luigi', 'FRANCO??','Sapobully4L'],
+  },
+  {
+    'domanda': 'Qual è il tuo colore preferito?',
+    'risposta': ['Rosa', 'Blu', 'Verde', 'Marrone'],
+  },
+  {
+    'domanda': 'Ti piacciono i cani?',
+    'risposta': ['Sì', 'No', 'Forse', 'COSA?'],
+  },
+];
+
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return MyAppState();
-  }  
+  }
 }
-class MyAppState extends State<MyApp>{
-  var domande = ['Come ti chiami?','Qual è il tuo colore preferio?','Ti piacciono i cani?'];
+
+class MyAppState extends State<MyApp> {
+  //var domande = ['Come ti chiami?','Qual è il tuo colore preferio?','Ti piacciono i cani?'];
+
   var indexDomande = 0;
-  void risposta(){
-    print('indexDomande=${indexDomande}');
-    print('Risposta selezionata');
+  void _risposta() {
+    /*print('indexDomande=${indexDomande}');
+    print('Risposta selezionata');*/
     setState(() {
-      indexDomande = (indexDomande+1)%domande.length;  
+      indexDomande++;
     });
   }
-
+  void _restart(){
+    setState(() {
+      indexDomande=0;
+    });  
+  }
 
   @override //ricorda di mettere l'override per pulizia del codice, è già fornito il metodo
   //dalla classe che stiamo estendendo
@@ -40,23 +61,29 @@ class MyAppState extends State<MyApp>{
         appBar: AppBar(
           title: Text('Ciao chicco!'),
         ),
-        body: Column(
-          children: [
-            Domande(domande[indexDomande]),
-            RaisedButton(
-              child: Text('Risposta 1'),
-              onPressed: risposta,
-            ),
-            RaisedButton(
-              child: Text('Risposta 2'),
-              onPressed: risposta,
-            ),
-            RaisedButton(
-              child: Text('Risposta 3'),
-              onPressed: risposta,
-            ),
-          ],
-        ),
+        body: indexDomande < questions.length
+            ? Column(
+                children: [
+                  Domande(
+                    questions[indexDomande]['domanda'],
+                  ),
+                  ...(questions[indexDomande]['risposta'] as List<String>)
+                      .map((risp) {
+                    return Risposte(risp, _risposta);
+                  }).toList()
+                ],
+              )
+            : Center(
+                child: Container(
+                  child: RaisedButton(
+                    child: Text('Restart'),
+                    onPressed: _restart,
+                    color: Colors.greenAccent,
+                    textColor: Colors.white,
+                  ),
+                  width: double.infinity,
+                ),
+              ),
       ),
     );
   }
