@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+
+import './domande.dart';
 /*void main(){//viene lanciato subito all'avvio dell'app  
   runApp(MyApp());//runApp è un metodo del package flutter/material.dart
                   //prende un widget che abbiamo creato e lo disegna sullo schermo
@@ -9,13 +12,21 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 //ogni widget in flutter deve estendere stateful widget o stateless widget
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }  
+}
+class MyAppState extends State<MyApp>{
   var domande = ['Come ti chiami?','Qual è il tuo colore preferio?','Ti piacciono i cani?'];
   var indexDomande = 0;
   void risposta(){
     print('indexDomande=${indexDomande}');
     print('Risposta selezionata');
-    indexDomande = (indexDomande+1)%domande.length;
+    setState(() {
+      indexDomande = (indexDomande+1)%domande.length;  
+    });
   }
 
 
@@ -31,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text(domande[indexDomande]),
+            Domande(domande[indexDomande]),
             RaisedButton(
               child: Text('Risposta 1'),
               onPressed: risposta,
