@@ -20,14 +20,15 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Monitoraggio di un corso d\'acqua'),
-      ),
-      body: Column(
-        children: <Widget>[
-          UserTransactions(),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Monitoraggio di un corso d\'acqua'),
+        ),
+        body: SingleChildScrollView(
+          child:Column(
+            children: <Widget>[
+              UserTransactions(),
+            ],
+          ),
+        ));
   }
 }
