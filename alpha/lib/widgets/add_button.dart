@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/new_configuration.dart';
+import '../widgets/configurations/new_monitoring.dart';
 
 class AddButton extends StatelessWidget {
  
+
   AddButton();
 
   @override
@@ -17,7 +18,7 @@ class AddButton extends StatelessWidget {
               onTap: () {},
               //child: NewTransaction(_addNewTransaction),
               //child: NewConfiguration.getConf('river'),
-              child:NewConfiguration.newRiver(),
+              child:NewMonitoring(),
               behavior: HitTestBehavior.opaque,
             );
           },
