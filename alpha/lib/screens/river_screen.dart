@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/river.dart';
 
 class RiverScreen extends StatefulWidget {
-  List<River> rivers;
+  final List<River> rivers = new List<River>();
   void addRiver(River r) {
     rivers.add(new River(
       riverName: r.riverName,
@@ -13,6 +13,7 @@ class RiverScreen extends StatefulWidget {
   }
 
   RiverScreen(name, date, nReaches, notes) {
+    print('on this');
     addRiver(new River(
       date: date,
       reachesNum: nReaches,
@@ -26,10 +27,6 @@ class RiverScreen extends StatefulWidget {
 }
 
 class _RiverScreenState extends State<RiverScreen> {
-  
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
