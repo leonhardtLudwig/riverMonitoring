@@ -1,5 +1,7 @@
+import 'package:alpha/widgets/monitoring.dart';
 import 'package:flutter/material.dart';
 import './new_river.dart';
+import '../monitoring.dart';
 
 class NewMonitoring extends StatelessWidget {
   void selectMonitoring(BuildContext ctx) {
@@ -13,6 +15,8 @@ class NewMonitoring extends StatelessWidget {
       ),
     );
   }
+
+  final List<Monitoring> monitoring;
 
   @override
   Widget build(BuildContext context) {
