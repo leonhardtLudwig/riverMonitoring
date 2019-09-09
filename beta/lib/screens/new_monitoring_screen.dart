@@ -19,7 +19,7 @@ class _NewMonitoringScreenState extends State<NewMonitoringScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nuovo tipo di monitoraggio'),
+        title: Text('New Monitoring Settings'),
       ),
       body: Container(
         margin: EdgeInsets.all(35),
@@ -27,11 +27,11 @@ class _NewMonitoringScreenState extends State<NewMonitoringScreen> {
           children: <Widget>[
             TextField(
               controller: nameController,
-              decoration: InputDecoration(labelText: 'Nome'),
+              decoration: InputDecoration(labelText: 'Name'),
             ),
             TextField(
               controller: notesController,
-              decoration: InputDecoration(labelText: 'Note'),
+              decoration: InputDecoration(labelText: 'Notes'),
               maxLines: 5,
             ),
             Container(

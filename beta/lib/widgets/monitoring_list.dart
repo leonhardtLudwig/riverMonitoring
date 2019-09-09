@@ -6,6 +6,7 @@ List<Monitoring> _monitors = [
   new Monitoring('+', null, 'Create new monitornig settings'),
 ];
 
+
 class MonitoringList extends StatefulWidget {
   @override
   _MonitoringListState createState() => _MonitoringListState();
