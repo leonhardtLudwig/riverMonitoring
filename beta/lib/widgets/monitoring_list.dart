@@ -6,15 +6,13 @@ List<Monitoring> _monitors = [
   new Monitoring('+', null, 'Create new monitornig settings'),
 ];
 
-
 class MonitoringList extends StatefulWidget {
   @override
   _MonitoringListState createState() => _MonitoringListState();
 }
 
 class _MonitoringListState extends State<MonitoringList> {
-  void _addMonitoring(
-      String nameController, String notesController) {
+  void _addMonitoring(String nameController, String notesController) {
     final enteredName = nameController;
     final enteredNotes = notesController;
     if (enteredName == null) return;
@@ -37,14 +35,17 @@ class _MonitoringListState extends State<MonitoringList> {
   }
 
   void newRiver(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed('/screens/new_river');
+    Navigator.of(ctx).pushReplacementNamed('/screens/new_river' );
   }
 
   @override
   Widget build(BuildContext context) {
-    _monitors.elementAt(0).changeScreenFunction = () {
-      newRiver(context);
-    };
+    for (int i = 0; i < _monitors.length - 1; i++) {
+      _monitors.elementAt(i).changeScreenFunction = () {
+        print(' index = ${i} ${_monitors.elementAt(0).changeScreenFunction}');
+        newRiver(context);
+      };
+    }
     _monitors.elementAt(_monitors.length - 1).changeScreenFunction = () {
       newMonitoring(context, _monitors);
     };
