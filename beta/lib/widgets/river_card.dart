@@ -1,3 +1,4 @@
+import 'package:beta/screens/edit_river.dart';
 import 'package:flutter/material.dart';
 
 import 'package:beta/models/river.dart';
@@ -23,9 +24,7 @@ class RiverCard extends StatelessWidget {
                   child: Text(
                     r.name,
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 25
-                    ),
+                        color: Theme.of(context).primaryColor, fontSize: 25),
                   ),
                 ),
                 Container(
@@ -37,15 +36,22 @@ class RiverCard extends StatelessWidget {
                       Icons.edit,
                       color: Theme.of(context).accentColor,
                     ),
-                    onPressed: (){}, //FUNZIONE DA ASSEGNARE
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditRiver(r),
+                        ),
+                      );
+                    }, 
                   ),
                 ),
               ],
             ),
           ),
           onTap: () {
-            Navigator.of(context).pushNamed('/screens/info_river',arguments: r);
-          }, //DA ASSEGNARE
+            Navigator.of(context)
+                .pushNamed('/screens/info_river', arguments: r);
+          }, 
         ),
       ),
     );

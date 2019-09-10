@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
 
-class NewRiver extends StatefulWidget {
+River _river;
+
+class EditRiver extends StatefulWidget {
+  EditRiver(River r) {
+    _river = r;
+    
+  }
   @override
-  _NewRiverState createState() => _NewRiverState();
+  _EditRiverState createState() => _EditRiverState();
 }
 
-class _NewRiverState extends State<NewRiver> {
+class _EditRiverState extends State<EditRiver> {
   final nameController = TextEditingController();
+  
 
   final reachesController = TextEditingController();
 
@@ -20,7 +27,7 @@ class _NewRiverState extends State<NewRiver> {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2019),
+      firstDate: DateTime(2000),
       lastDate: DateTime(3000),
     ).then((pickedDate) {
       if (pickedDate == null) {
@@ -32,35 +39,41 @@ class _NewRiverState extends State<NewRiver> {
       }
     });
   }
-  
+
   void _submit(String name, DateTime date, int nReaches, String notes) {
-    final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
-   
+    //final rivers = ModalRoute.of(context).settings.arguments as List<River>;
+    /*Navigator.of(context)
+        .pop(rivers.add(new River(name, date, nReaches, notes)));*/
+    _river.name = name==''?_river.name:name;
+    _river.date = date==null?_river.date:date;
+    _river.nReaches = nReaches==0?_river.nReaches:nReaches;
+    _river.notes = notes==''?_river.notes:notes;
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('New River'),
+        title: Text('Editing "${_river.name}"'),
       ),
       body: Container(
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            TextField(
+            TextField( 
               controller: nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: 'Name',hintText: _river.name),
             ),
             TextField(
               controller: reachesController,
-              decoration: InputDecoration(labelText: 'Number of reaches'),
+              decoration: InputDecoration(labelText: 'Number of reaches',hintText: _river.nReaches.toString()),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: notesController,
-              decoration: InputDecoration(labelText: 'Notes'),
+              decoration: InputDecoration(labelText: 'Notes',hintText: _river.notes),
               maxLines: 5,
             ),
             Row(
@@ -72,7 +85,7 @@ class _NewRiverState extends State<NewRiver> {
                 Container(
                   child: Text(
                     dateController == null
-                        ? 'No Date Chosen'
+                        ? DateFormat('dd/MM/yyyy').format(_river.date)
                         : DateFormat('dd/MM/yyyy').format(dateController),
                   ),
                 ),
@@ -82,8 +95,9 @@ class _NewRiverState extends State<NewRiver> {
               alignment: Alignment.centerRight,
               child: FlatButton(
                 onPressed: () {
+                  
                   _submit(nameController.text, dateController,
-                      int.parse(reachesController.text), notesController.text);
+                      reachesController.text==''?0:int.parse(reachesController.text), notesController.text);
                 }, //RICORDA DA MODIFICARE
                 child: Text(
                   'Submit',

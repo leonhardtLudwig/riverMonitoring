@@ -1,4 +1,5 @@
 //packages
+import 'package:beta/screens/info_reach.dart';
 import 'package:beta/screens/new_monitoring_screen.dart';
 import 'package:beta/widgets/river_list.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import './widgets/add_button.dart';
 //screens
 import './screens/new_river.dart';
 import './screens/info_river.dart';
+import './screens/info_reach.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/screens/new_monitoring_screen': (ctx) => NewMonitoringScreen(),
         '/screens/new_river': (ctx) => NewRiver(),
         '/screens/info_river': (ctx) => InfoRiver(),
+        '/screens/info_reach':(ctx)=>InfoReach(),
         'homePage': (ctx) => HomePage(),
       },
     );
@@ -37,7 +41,7 @@ List<River> rivers = [
   new River(
     'Piave',
     DateTime.now(),
-    15,
+    5,
     'Questo è un test\nper vedere se\nle note funzionano',
   )
 ];
