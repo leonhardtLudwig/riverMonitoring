@@ -32,9 +32,10 @@ class _NewRiverState extends State<NewRiver> {
       }
     });
   }
-
+  
   void _submit(String name, DateTime date, int nReaches, String notes) {
-    print(Navigator.of(context).pop(new River(name,date,nReaches,notes)));
+    final rivers = ModalRoute.of(context).settings.arguments as List<River>;
+    print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
     /*Navigator.of(context)
         .popNamed('homePage', arguments: _addMonitoring);*/
     //Navigator.of(context).pushReplacementNamed('homePage',arguments: new River(name,date,nReaches,notes));

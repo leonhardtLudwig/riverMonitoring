@@ -1,6 +1,10 @@
-class Monitoring{
+class Monitoring {
   String name;
   String notes;
   Function changeScreenFunction;
-  Monitoring(this.name,this.changeScreenFunction,this.notes);
+  Monitoring(
+    this.name,
+    this.changeScreenFunction,
+    this.notes,
+  );
 }

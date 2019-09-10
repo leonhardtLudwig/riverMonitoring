@@ -1,3 +1,4 @@
+import 'package:beta/main.dart' as prefix0;
 import 'package:flutter/material.dart';
 import '../models/monitoring.dart';
 
@@ -6,7 +7,12 @@ List<Monitoring> _monitors = [
   new Monitoring('+', null, 'Create new monitornig settings'),
 ];
 
+//List<River>rivers;
+
 class MonitoringList extends StatefulWidget {
+  /*MonitoringList(rivList){
+    rivers = rivList;
+  }*/
   @override
   _MonitoringListState createState() => _MonitoringListState();
 }
@@ -35,14 +41,13 @@ class _MonitoringListState extends State<MonitoringList> {
   }
 
   void newRiver(BuildContext ctx) {
-    Navigator.of(ctx).pushReplacementNamed('/screens/new_river' );
+    Navigator.of(ctx).pushReplacementNamed('/screens/new_river',arguments: prefix0.rivers );
   }
 
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < _monitors.length - 1; i++) {
       _monitors.elementAt(i).changeScreenFunction = () {
-        print(' index = ${i} ${_monitors.elementAt(0).changeScreenFunction}');
         newRiver(context);
       };
     }

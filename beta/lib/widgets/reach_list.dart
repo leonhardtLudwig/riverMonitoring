@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import '../models/river.dart';
 
-import 'package:beta/models/river.dart';
+River river;
+class ReachList extends StatefulWidget {
+  
+  ReachList(River r){
+    river = r;
+    print(river.nReaches);
+  }
+  @override
+  _ReachListState createState() => _ReachListState();
+}
 
-class RiverCard extends StatelessWidget {
-  final River r;
-
-  RiverCard(this.r);
-
+class _ReachListState extends State<ReachList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
+      height: 500,
+      child: ListView.builder(
+              itemCount: river.nReaches,
+              itemBuilder: (context, index) {
+                return Container(
         padding: EdgeInsets.all(10),
         height: 80,
         child: InkWell(
@@ -21,7 +31,7 @@ class RiverCard extends StatelessWidget {
                   //margin: EdgeInsetsGeometry.lerp(a, b, t), //DA SISTEMARE (FALLO AUTOMATICO)
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    r.name,
+                    'Reach ${(index+1).toString()}',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 25
@@ -43,11 +53,12 @@ class RiverCard extends StatelessWidget {
               ],
             ),
           ),
-          onTap: () {
-            Navigator.of(context).pushNamed('/screens/info_river',arguments: r);
-          }, //DA ASSEGNARE
+          onTap: () {}, //DA ASSEGNARE
         ),
-      ),
+      );
+              },
+            ),
+            
     );
   }
 }

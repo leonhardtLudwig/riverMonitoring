@@ -10,13 +10,11 @@ import './models/river.dart';
 //widgets
 import './widgets/add_button.dart';
 
-
 //screens
 import './screens/new_river.dart';
+import './screens/info_river.dart';
 
 void main() => runApp(MyApp());
-
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,14 +26,20 @@ class MyApp extends StatelessWidget {
       routes: {
         '/screens/new_monitoring_screen': (ctx) => NewMonitoringScreen(),
         '/screens/new_river': (ctx) => NewRiver(),
+        '/screens/info_river': (ctx) => InfoRiver(),
         'homePage': (ctx) => HomePage(),
       },
     );
   }
 }
 
-List<River>rivers = [
-  new River('Piave',DateTime.now(),2,'')
+List<River> rivers = [
+  new River(
+    'Piave',
+    DateTime.now(),
+    15,
+    'Questo è un test\nper vedere se\nle note funzionano',
+  )
 ];
 
 class HomePage extends StatefulWidget {
@@ -44,7 +48,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('River Monitoring'),
       ),
       body: RiverList(rivers),
-      floatingActionButton: AddButton(),
+      floatingActionButton: AddButton(/*rivers*/),
     );
   }
 }

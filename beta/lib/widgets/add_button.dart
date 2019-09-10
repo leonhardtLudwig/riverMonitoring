@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import './monitoring_list.dart';
-import '../models/river.dart';
 class AddButton extends StatelessWidget {
+  /*List<River>rivers;
+  AddButton(this.rivers);*/
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -12,7 +13,7 @@ class AddButton extends StatelessWidget {
           builder: (bCtx) {
             return GestureDetector(
               onTap: () {},
-              child:MonitoringList(),
+              child:MonitoringList(/*rivers*/),
               behavior: HitTestBehavior.opaque,
             );
           },
