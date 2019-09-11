@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import '../screens/edit_reach.dart';
-import '../models/reach.dart';
+import '../screens/edit_section.dart';
+import '../models/section.dart';
 
-class ReachCard extends StatelessWidget {
+class SectionCard extends StatelessWidget {
   int index;
-  Reach reach;
+  Section section;
 
   @override
-  ReachCard(this.index,this.reach);
+  SectionCard(this.index, this.section);
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
@@ -20,7 +22,7 @@ class ReachCard extends StatelessWidget {
                 //margin: EdgeInsetsGeometry.lerp(a, b, t), //DA SISTEMARE (FALLO AUTOMATICO)
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  'Reach ${(index + 1).toString()}',
+                  'Section ${(index + 1).toString()}',
                   style: TextStyle(
                       color: Theme.of(context).primaryColor, fontSize: 25),
                 ),
@@ -37,26 +39,27 @@ class ReachCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => EditReach(reach),
+                        builder: (context) => EditSection(section),
                       ),
                     );
-                  }, 
+                  },
                 ),
               ),
             ],
           ),
         ),
         onTap: () {
-          if(reach.firstTime){
+          if (section.firstTime) {
             Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => EditReach(reach),
-                      ),
-                    );
-          }else{
+              MaterialPageRoute(
+                builder: (context) => EditSection(section),
+              ),
+            );
+          } else {
             Navigator.of(context)
-                .pushNamed('/screens/info_reach', arguments: reach);
-        }}, 
+                .pushNamed('/screens/info_section', arguments: section);
+          }
+        },
       ),
     );
   }

@@ -16,7 +16,8 @@ import './widgets/add_button.dart';
 import './screens/new_river.dart';
 import './screens/info_river.dart';
 import './screens/info_reach.dart';
-import 'package:beta/screens/edit_reach.dart';
+import './screens/info_section.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/screens/new_river': (ctx) => NewRiver(),
         '/screens/info_river': (ctx) => InfoRiver(),
         '/screens/info_reach': (ctx) => InfoReach(),
+        '/screens/info_section':(ctx)=> InfoSection(),
         'homePage': (ctx) => HomePage(),
       },
     );

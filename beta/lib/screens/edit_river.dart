@@ -8,7 +8,6 @@ River _river;
 class EditRiver extends StatefulWidget {
   EditRiver(River r) {
     _river = r;
-    
   }
   @override
   _EditRiverState createState() => _EditRiverState();
@@ -16,7 +15,7 @@ class EditRiver extends StatefulWidget {
 
 class _EditRiverState extends State<EditRiver> {
   final nameController = TextEditingController();
-  
+
   final String oldNotes = _river.notes;
 
   final reachesController = TextEditingController();
@@ -43,77 +42,88 @@ class _EditRiverState extends State<EditRiver> {
   }
 
   void _submit(String name, DateTime date, int nReaches, String notes) {
-    
-    _river.name = name==''?_river.name:name;
-    _river.date = date==null?_river.date:date;
-    if(nReaches!=0){
+    _river.name = name == '' ? _river.name : name;
+    _river.date = date == null ? _river.date : date;
+    if (nReaches != 0) {
       _river.nReaches = nReaches;
 
-      for(int i = _river.reaches.length;i <nReaches;i++){
+      for (int i = _river.reaches.length; i < nReaches; i++) {
         print('i.toString() ${i.toString()}');
-        _river.reaches.add(Reach((i+1).toString(),0,_river,''));
+        _river.reaches.add(Reach((i + 1).toString(), 0, _river, ''));
       }
     }
-    _river.notes = notes==''?_river.notes:notes;
+    _river.notes = notes == '' ? _river.notes : notes;
 
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Text('Editing "${_river.name}"'),
       ),
-      body: Container(
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            TextField( 
-              controller: nameController,
-              decoration: InputDecoration(labelText: 'Name',hintText: _river.name),
-            ),
-            TextField(
-              controller: reachesController,
-              decoration: InputDecoration(labelText: 'Number of reaches',hintText: _river.nReaches.toString()),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: notesController,
-              decoration: InputDecoration(labelText: 'Notes',hintText: _river.notes),
-              maxLines: 5,
-              onTap: (){notesController.text = oldNotes;},
-            ),
-            Row(
-              children: <Widget>[
-                FlatButton(
-                  child: Text('Date'),
-                  onPressed: _datePicker,
-                ),
-                Container(
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                controller: nameController,
+                decoration:
+                    InputDecoration(labelText: 'Name', hintText: _river.name),
+              ),
+              TextField(
+                controller: reachesController,
+                decoration: InputDecoration(
+                    labelText: 'Number of reaches',
+                    hintText: _river.nReaches.toString()),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: notesController,
+                decoration:
+                    InputDecoration(labelText: 'Notes', hintText: _river.notes),
+                maxLines: 5,
+                onTap: () {
+                  notesController.text = oldNotes;
+                },
+              ),
+              Row(
+                children: <Widget>[
+                  FlatButton(
+                    child: Text('Date'),
+                    onPressed: _datePicker,
+                  ),
+                  Container(
+                    child: Text(
+                      dateController == null
+                          ? DateFormat('dd/MM/yyyy').format(_river.date)
+                          : DateFormat('dd/MM/yyyy').format(dateController),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  onPressed: () {
+                    _submit(
+                        nameController.text,
+                        dateController,
+                        reachesController.text == ''
+                            ? 0
+                            : int.parse(reachesController.text),
+                        notesController.text);
+                  },
                   child: Text(
-                    dateController == null
-                        ? DateFormat('dd/MM/yyyy').format(_river.date)
-                        : DateFormat('dd/MM/yyyy').format(dateController),
+                    'Submit',
+                    style: TextStyle(color: Theme.of(context).accentColor),
                   ),
                 ),
-              ],
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: () {
-                  _submit(nameController.text, dateController,
-                      reachesController.text==''?0:int.parse(reachesController.text), notesController.text);
-                }, 
-                child: Text(
-                  'Submit',
-                  style: TextStyle(color: Theme.of(context).accentColor),
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

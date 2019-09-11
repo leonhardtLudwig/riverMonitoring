@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
+import '../models/reach.dart';
 
 class NewRiver extends StatefulWidget {
   @override
@@ -35,7 +36,14 @@ class _NewRiverState extends State<NewRiver> {
   
   void _submit(String name, DateTime date, int nReaches, String notes) {
     final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
+    rivers.add(new River(name,date,nReaches,notes));
+    for(int i = 0; i<rivers.length;i++){
+      for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
+      rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),''));
+      }
+    }
+    Navigator.of(context).pop();
+    //print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
    
   }
 
