@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:beta/models/river.dart';
 
 class RiverCard extends StatelessWidget {
-  final River r;
+  River _r;
 
-  RiverCard(this.r);
-
+  @override
+  RiverCard(River river){
+    _r = river;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +24,7 @@ class RiverCard extends StatelessWidget {
                   //margin: EdgeInsetsGeometry.lerp(a, b, t), //DA SISTEMARE (FALLO AUTOMATICO)
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    r.name,
+                    _r.name,
                     style: TextStyle(
                         color: Theme.of(context).primaryColor, fontSize: 25),
                   ),
@@ -39,7 +41,7 @@ class RiverCard extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => EditRiver(r),
+                          builder: (context) => EditRiver(_r),
                         ),
                       );
                     }, 
@@ -50,7 +52,7 @@ class RiverCard extends StatelessWidget {
           ),
           onTap: () {
             Navigator.of(context)
-                .pushNamed('/screens/info_river', arguments: r);
+                .pushNamed('/screens/info_river', arguments: _r);
           }, 
         ),
       ),

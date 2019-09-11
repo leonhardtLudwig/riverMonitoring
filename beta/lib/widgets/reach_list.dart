@@ -7,7 +7,11 @@ class ReachList extends StatefulWidget {
   
   ReachList(River r){
     river = r;
-    print(river.nReaches);
+    for(int i = river.reaches.length;i>river.nReaches;i--){
+      river.reaches.removeAt(i-1);
+    }
+    print('Length: ${river.reaches.length}');
+    
   }
   @override
   _ReachListState createState() => _ReachListState();
@@ -21,6 +25,9 @@ class _ReachListState extends State<ReachList> {
       child: ListView.builder(
               itemCount: river.nReaches,
               itemBuilder: (context, index) {
+                /*print(river.nReaches);
+                print(index);
+                print(river.reaches.length);*/
                 return ReachCard(index,river.reaches.elementAt(index));
               },
             ),

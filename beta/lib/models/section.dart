@@ -1,9 +1,11 @@
 import './sample.dart';
+import './reach.dart';
 class Section{
   String name;
   int nSample;
   List<Sample>samples;
-  Section(this.name,this.nSample){
+  Reach reach;
+  Section(this.name,this.nSample,this.reach){
     samples = [];
   }
 }

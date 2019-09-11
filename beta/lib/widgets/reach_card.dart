@@ -5,9 +5,9 @@ import '../models/reach.dart';
 class ReachCard extends StatelessWidget {
   int index;
   Reach reach;
-  ReachCard(this.index,this.reach);
 
   @override
+  ReachCard(this.index,this.reach);
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),

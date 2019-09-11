@@ -1,3 +1,4 @@
+import 'package:beta/models/reach.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
@@ -16,6 +17,7 @@ class EditRiver extends StatefulWidget {
 class _EditRiverState extends State<EditRiver> {
   final nameController = TextEditingController();
   
+  final String oldNotes = _river.notes;
 
   final reachesController = TextEditingController();
 
@@ -41,13 +43,19 @@ class _EditRiverState extends State<EditRiver> {
   }
 
   void _submit(String name, DateTime date, int nReaches, String notes) {
-    //final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    /*Navigator.of(context)
-        .pop(rivers.add(new River(name, date, nReaches, notes)));*/
+    
     _river.name = name==''?_river.name:name;
     _river.date = date==null?_river.date:date;
-    _river.nReaches = nReaches==0?_river.nReaches:nReaches;
+    if(nReaches!=0){
+      _river.nReaches = nReaches;
+
+      for(int i = _river.reaches.length;i <nReaches;i++){
+        
+        _river.reaches.add(Reach(i.toString(),0,_river));
+      }
+    }
     _river.notes = notes==''?_river.notes:notes;
+
     Navigator.of(context).pop();
   }
 
@@ -75,6 +83,7 @@ class _EditRiverState extends State<EditRiver> {
               controller: notesController,
               decoration: InputDecoration(labelText: 'Notes',hintText: _river.notes),
               maxLines: 5,
+              onTap: (){notesController.text = oldNotes;},
             ),
             Row(
               children: <Widget>[
@@ -95,7 +104,6 @@ class _EditRiverState extends State<EditRiver> {
               alignment: Alignment.centerRight,
               child: FlatButton(
                 onPressed: () {
-                  
                   _submit(nameController.text, dateController,
                       reachesController.text==''?0:int.parse(reachesController.text), notesController.text);
                 }, //RICORDA DA MODIFICARE

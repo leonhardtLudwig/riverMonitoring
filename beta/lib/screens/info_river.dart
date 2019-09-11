@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
 import '../widgets/reach_list.dart';
+import '../widgets/info_text.dart';
 
 class InfoRiver extends StatelessWidget {
   @override
@@ -19,26 +20,19 @@ class InfoRiver extends StatelessWidget {
             width: double.infinity,
             child: Card(
               elevation: 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Name: ${river.name}',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                  Text(
-                    'Date: ${DateFormat('dd/MM/yyyy').format(river.date).toString()}',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                  Text(
-                    'Number of reaches: ${river.nReaches}',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                  Text(
-                    'Notes:${river.notes}',
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                ],
+              child: Container(
+                height: 100,
+                margin: EdgeInsets.all(10),
+                child: ListView(
+                  children: <Widget>[
+                    InfoText('Name',river.name),
+                    InfoText(
+                        'Date',DateFormat('dd/MM/yyyy').format(river.date).toString()),
+                    InfoText('Reaches',river.nReaches.toString()),
+                    InfoText('Notes',river.notes),
+                  ],
+                ),
+
               ),
             ),
           ),

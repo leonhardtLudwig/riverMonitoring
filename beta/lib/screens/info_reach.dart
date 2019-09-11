@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../models/reach.dart';
 
@@ -8,7 +9,9 @@ class InfoReach extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Reach ${reach.name}'),
+        
       ),
+      body: Text(reach.hashCode.toString()),
     );
   }
 }
