@@ -25,14 +25,13 @@ class InfoRiver extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 child: ListView(
                   children: <Widget>[
-                    InfoText('Name',river.name),
-                    InfoText(
-                        'Date',DateFormat('dd/MM/yyyy').format(river.date).toString()),
-                    InfoText('Reaches',river.nReaches.toString()),
-                    InfoText('Notes',river.notes),
+                    InfoText('Name', river.name),
+                    InfoText('Date',
+                        DateFormat('dd/MM/yyyy').format(river.date).toString()),
+                    InfoText('Reaches', river.nReaches.toString()),
+                    InfoText('Notes', river.notes),
                   ],
                 ),
-
               ),
             ),
           ),
@@ -42,6 +41,7 @@ class InfoRiver extends StatelessWidget {
           ),
         ],
       ),
+      
     );
   }
 }

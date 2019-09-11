@@ -1,3 +1,4 @@
+import 'package:beta/widgets/reach_list.dart';
 import 'package:flutter/material.dart';
 import '../screens/edit_reach.dart';
 import '../models/reach.dart';
@@ -43,13 +44,23 @@ class ReachCard extends StatelessWidget {
                   }, 
                 ),
               ),
+            
             ],
           ),
         ),
         onTap: () {
-          Navigator.of(context)
+          if(reach.firstTime){
+            Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EditReach(reach),
+                      ),
+                    );
+          }else{
+            Navigator.of(context)
                 .pushNamed('/screens/info_reach', arguments: reach);
-        }, 
+        
+        }}, 
+        
       ),
     );
   }

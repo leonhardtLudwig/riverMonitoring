@@ -16,6 +16,7 @@ import './widgets/add_button.dart';
 import './screens/new_river.dart';
 import './screens/info_river.dart';
 import './screens/info_reach.dart';
+import 'package:beta/screens/edit_reach.dart';
 
 void main() => runApp(MyApp());
 
@@ -53,7 +54,7 @@ class HomePage extends StatefulWidget {
   HomePage() {
     for(int i = 0; i<rivers.length;i++){
       for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
-      rivers.elementAt(i).reaches.add(new Reach((i + 1).toString(), 0, rivers.elementAt(i)));
+      rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),''));
       }
     }
   }

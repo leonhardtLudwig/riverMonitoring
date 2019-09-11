@@ -25,9 +25,9 @@ class _ReachListState extends State<ReachList> {
       child: ListView.builder(
               itemCount: river.nReaches,
               itemBuilder: (context, index) {
-                /*print(river.nReaches);
+                print(river.nReaches);
                 print(index);
-                print(river.reaches.length);*/
+                print('Reaches length ${river.reaches.length}');
                 return ReachCard(index,river.reaches.elementAt(index));
               },
             ),

@@ -3,9 +3,13 @@ import './river.dart';
 class Reach{
   String name;
   int nSections;
+  String notes;
+
   List<Section>sections;
   River river;
-  Reach(this.name,this.nSections,this.river){
+  bool firstTime;
+  Reach(this.name,this.nSections,this.river,this.notes){
+    firstTime = true;
     sections = [];
     /*for(int i = 0; i<nSections;i++){
       sections.add(new Section(i.toString(),0));

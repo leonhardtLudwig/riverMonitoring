@@ -50,8 +50,8 @@ class _EditRiverState extends State<EditRiver> {
       _river.nReaches = nReaches;
 
       for(int i = _river.reaches.length;i <nReaches;i++){
-        
-        _river.reaches.add(Reach(i.toString(),0,_river));
+        print('i.toString() ${i.toString()}');
+        _river.reaches.add(Reach((i+1).toString(),0,_river,''));
       }
     }
     _river.notes = notes==''?_river.notes:notes;
@@ -106,7 +106,7 @@ class _EditRiverState extends State<EditRiver> {
                 onPressed: () {
                   _submit(nameController.text, dateController,
                       reachesController.text==''?0:int.parse(reachesController.text), notesController.text);
-                }, //RICORDA DA MODIFICARE
+                }, 
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Theme.of(context).accentColor),

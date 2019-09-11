@@ -1,3 +1,4 @@
+import 'package:beta/main.dart';
 import 'package:beta/screens/edit_river.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,6 @@ class RiverCard extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Container(
-                  //margin: EdgeInsetsGeometry.lerp(a, b, t), //DA SISTEMARE (FALLO AUTOMATICO)
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     _r.name,
@@ -47,6 +47,7 @@ class RiverCard extends StatelessWidget {
                     }, 
                   ),
                 ),
+                
               ],
             ),
           ),
