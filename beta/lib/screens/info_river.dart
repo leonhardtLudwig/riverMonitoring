@@ -16,14 +16,14 @@ class InfoRiver extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all( MediaQuery.of(context).size.height*0.009),
+              margin: EdgeInsets.all( MediaQuery.of(context).size.height*0.009),
               width: double.infinity,
               child: Card(
                 elevation: 0,
                 child: Container(
-                  height: 100,
-                  margin: EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height*0.12,
+                  margin: EdgeInsets.all( MediaQuery.of(context).size.height*0.009),
                   child: ListView(
                     children: <Widget>[
                       InfoText('Name', river.name),
@@ -40,7 +40,7 @@ class InfoRiver extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all( MediaQuery.of(context).size.height*0.009),
               child: ReachList(river),
             ),
           ],

@@ -25,7 +25,7 @@ class _EditReachState extends State<EditReach> {
 
       for (int i = _reach.sections.length; i < nSec; i++) {
         print('i.toString() ${i.toString()}');
-        _reach.sections.add(Section(name, 0, _reach));
+        _reach.sections.add(Section((i+1).toString(), 0, _reach,''));
       }
     }
     _reach.notes = notes == '' ? _reach.notes : notes;
@@ -41,7 +41,7 @@ class _EditReachState extends State<EditReach> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.all(MediaQuery.of(context).size.width*0.02),
           child: Column(children: <Widget>[
             TextField(
               controller: nameController,

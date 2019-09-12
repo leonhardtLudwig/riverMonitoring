@@ -21,7 +21,7 @@ class _ReachListState extends State<ReachList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: MediaQuery.of(context).size.height*0.6,
       child: ListView.builder(
               itemCount: river.nReaches,
               itemBuilder: (context, index) {

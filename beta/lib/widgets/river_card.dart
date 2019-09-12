@@ -16,12 +16,15 @@ class RiverCard extends StatelessWidget {
     return Container(
       child: Container(
         padding: EdgeInsets.all(10),
-        height: 80,
+        height: MediaQuery.of(context).size.height*0.1,
+        //height: 80,
         child: InkWell(
           child: Card(
             child: Row(
               children: <Widget>[
                 Container(
+                  //margin: MediaQuery.of(context).size.width*0.05,
+                  margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     _r.name,
@@ -30,7 +33,8 @@ class RiverCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: 50,
+                  //width: MediaQuery.of(context).size.width*0.75,
+                  margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.5),
                   //margin:EdgeInsets.fromLTRB(200, 0, 0, 0), //DA SISTEMARE (FALLO AUTOMATICO)
                   alignment: AlignmentDirectional.centerEnd,
                   child: FlatButton(

@@ -1,5 +1,7 @@
 import './section.dart';
 class Sample{
   Section section;
-  Sample(this.section);
+  String name;
+  String notes;
+  Sample(this.name,this.section,this.notes);
 }

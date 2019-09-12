@@ -67,10 +67,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    final appBar = AppBar(
         title: Text('River Monitoring'),
-      ),
+      );
+    return Scaffold(
+      appBar: appBar,
       body: RiverList(rivers),
       floatingActionButton: AddButton(/*rivers*/),
     );

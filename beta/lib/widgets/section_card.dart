@@ -12,14 +12,14 @@ class SectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
-      height: 80,
+      padding: EdgeInsets.all( MediaQuery.of(context).size.height*0.008),
+      height: MediaQuery.of(context).size.height*0.1,
       child: InkWell(
         child: Card(
           child: Row(
             children: <Widget>[
               Container(
-                //margin: EdgeInsetsGeometry.lerp(a, b, t), //DA SISTEMARE (FALLO AUTOMATICO)
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
                   'Section ${(index + 1).toString()}',
@@ -29,7 +29,7 @@ class SectionCard extends StatelessWidget {
               ),
               Container(
                 width: 50,
-                //margin:EdgeInsets.fromLTRB(200, 0, 0, 0), //DA SISTEMARE (FALLO AUTOMATICO)
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.39),
                 alignment: AlignmentDirectional.centerEnd,
                 child: FlatButton(
                   child: Icon(

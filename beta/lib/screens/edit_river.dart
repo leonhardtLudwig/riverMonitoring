@@ -65,7 +65,7 @@ class _EditRiverState extends State<EditRiver> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.all(MediaQuery.of(context).size.width*0.02),
           child: Column(
             children: <Widget>[
               TextField(

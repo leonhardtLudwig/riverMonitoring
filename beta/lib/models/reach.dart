@@ -12,11 +12,11 @@ class Reach{
     firstTime = true;
     sections = [];
   }
-  void initSection(int index,int nS){
+  /*void initSection(int index,int nS){
     if(index<nSections){
       sections.elementAt(index).nSample = nS;
     }else{
       return;
     }
-  }
+  }*/
 }
