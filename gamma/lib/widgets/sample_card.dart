@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import '../screens/edit_reach.dart';
-import '../models/reach.dart';
-
-class ReachCard extends StatelessWidget {
+import 'package:gamma/models/sample.dart';
+import '../screens/edit_sample.dart';
+class SampleCard extends StatelessWidget {
   int index;
-  Reach reach;
-
+  Sample sample;
+  SampleCard(this.index,this.sample);
   @override
-  ReachCard(this.index,this.reach);
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all( MediaQuery.of(context).size.height*0.008),
@@ -20,13 +18,14 @@ class ReachCard extends StatelessWidget {
                 margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  'Reach ${(index + 1).toString()}',
+                  'Sample ${(index + 1).toString()}',
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: (MediaQuery.of(context).size.width*0.06)/reach.name.length),
+                      color: Theme.of(context).primaryColor, fontSize: 25),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.38),
+                width: 50,
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.39),
                 alignment: AlignmentDirectional.centerEnd,
                 child: FlatButton(
                   child: Icon(
@@ -36,27 +35,28 @@ class ReachCard extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => EditReach(reach),
+                        builder: (context) => EditSample(sample),
                       ),
                     );
-                  }, 
+                  },
                 ),
               ),
             ],
           ),
         ),
         onTap: () {
-          if(reach.firstTime){
+          if (sample.firstTime) {
             Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => EditReach(reach),
-                      ),
-                    );
-          }else{
+              MaterialPageRoute(
+                builder: (context) => EditSample(sample),
+              ),
+            );
+          } else {
             Navigator.of(context)
-                .pushNamed('/screens/info_reach', arguments: reach);
-        }}, 
-      ),
+                .pushNamed('/screens/info_sample', arguments: sample);
+          }
+        },
+      ),  
     );
   }
 }

@@ -17,6 +17,7 @@ import './screens/new_river.dart';
 import './screens/info_river.dart';
 import './screens/info_reach.dart';
 import './screens/info_section.dart';
+import './screens/info_sample.dart';
 
 
 void main() => runApp(MyApp());
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/screens/info_river': (ctx) => InfoRiver(),
         '/screens/info_reach': (ctx) => InfoReach(),
         '/screens/info_section':(ctx)=> InfoSection(),
+        '/screens/info_sample':(ctx)=>InfoSample(),
         'homePage': (ctx) => HomePage(),
       },
     );
@@ -44,7 +46,7 @@ List<River> rivers = [
   new River(
     'Piave',
     DateTime.now(),
-    5,
+    2,
     'Questo è un test\nper vedere se\nle note funzionano',
   )
 ];

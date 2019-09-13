@@ -3,6 +3,7 @@ import './reach.dart';
 class Section{
   String name;
   int nSample;
+  int nS;
   String notes;
   bool firstTime;
   List<Sample>samples;

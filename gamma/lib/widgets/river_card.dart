@@ -29,7 +29,7 @@ class RiverCard extends StatelessWidget {
                   child: Text(
                     _r.name,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 25),
+                        color: Theme.of(context).primaryColor, fontSize: (MediaQuery.of(context).size.width*0.05*5)/_r.name.length),
                   ),
                 ),
                 Container(

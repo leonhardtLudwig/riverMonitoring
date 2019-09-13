@@ -55,8 +55,8 @@ class _MonitoringListState extends State<MonitoringList> {
       newMonitoring(context, _monitors);
     };
     return Container(
-      width: 300,
-      padding: EdgeInsets.all(35),
+      width: MediaQuery.of(context).size.width*0.2,
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width*0.05),
       child: Container(
         width: double.infinity,
         child: ListView.builder(
@@ -64,7 +64,7 @@ class _MonitoringListState extends State<MonitoringList> {
           itemBuilder: (ctx, index) {
             return InkWell(
               child: Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.05, 0, MediaQuery.of(context).size.width*0.05, 0),
                 child: FlatButton(
                   onPressed: _monitors.elementAt(index).changeScreenFunction,
                   child: Text(

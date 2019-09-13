@@ -3,5 +3,8 @@ class Sample{
   Section section;
   String name;
   String notes;
-  Sample(this.name,this.section,this.notes);
+  bool firstTime;
+  Sample(this.name,this.section,this.notes){
+    firstTime = true;
+  }
 }
