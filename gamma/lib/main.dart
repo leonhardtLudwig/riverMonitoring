@@ -1,4 +1,6 @@
 //packages
+import 'dart:convert';
+
 import 'package:gamma/screens/info_reach.dart';
 import 'package:gamma/screens/new_monitoring_screen.dart';
 import 'package:gamma/widgets/river_list.dart';
@@ -42,19 +44,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-List<River> rivers = [
-  new River(
-    'Piave',
-    DateTime.now(),
-    2,
-    'Questo è un test\nper vedere se\nle note funzionano',
-  )
-];
+
 
 class HomePage extends StatefulWidget {
   /*for(int i = 0; i<river.nReaches;i++){
       rivers.reaches.add(new Reach((i+1).toString(),0,river));
     }*/
+  
   HomePage() {
     for(int i = 0; i<rivers.length;i++){
       for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
@@ -66,9 +62,21 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+List<River> rivers = [
+  new River(
+    'Piave',
+    DateTime.now(),
+    2,
+    'Questo è un test\nper vedere se\nle note funzionano',
+  )
+];
+
 class _HomePageState extends State<HomePage> {
+  
   @override
   Widget build(BuildContext context) {
+    
+    
     final appBar = AppBar(
         title: Text('River Monitoring'),
       );
