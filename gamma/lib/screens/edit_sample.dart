@@ -27,7 +27,7 @@ class _EditSampleState extends State<EditSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editing Sample %${_sample.name}'),
+        title: Text('Editing Sample ${_sample.name}'),
       ),
       body: SingleChildScrollView(
         child: Container(

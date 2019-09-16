@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gamma/models/sample.dart';
+import 'package:gamma/screens/sample_data_table_screen.dart';
 import '../widgets/info_text.dart';
 
 class InfoSample extends StatelessWidget {
@@ -34,7 +35,13 @@ class InfoSample extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.table_chart),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SampleDataTableScreen(sample),
+            ),
+          );
+        },
       ),
     );
   }
