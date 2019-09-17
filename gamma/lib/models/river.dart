@@ -1,5 +1,7 @@
 import './reach.dart';
 class River{
+  int id;
+
   String name;
   DateTime date;
   int nReaches;
@@ -25,5 +27,15 @@ class River{
       l.add(reaches.elementAt(i).toJson());
     }
     return l;
+  }
+
+  
+  static River fromMap(Map<String, dynamic> map) {
+    return River(
+      map['name'],
+      map['date'],
+      map['nReaches'],
+      map['notes']
+    );
   }
 }
