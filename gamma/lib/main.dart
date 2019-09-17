@@ -67,12 +67,12 @@ class MyApp extends StatelessWidget {
 }
 
 List<River> rivers = [
-  /*new River(
+  new River(
     'Piave',
     DateTime.now(),
     2,
     'Questo è un test\nper vedere se\nle note funzionano',
-  )*/
+  )
 ];
 
 class HomePage extends StatefulWidget {
@@ -93,17 +93,14 @@ class HomePage extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePage> {
-  RiverBloc _riverBloc;
+  /*RiverBloc _riverBloc;
 
    @override
   void initState() {
     super.initState();
-    // Obtaining the FruitBloc instance through BlocProvider which is an InheritedWidget
     _riverBloc = BlocProvider.of<RiverBloc>(context);
-    // Events can be passed into the bloc by calling dispatch.
-    // We want to start loading fruits right from the start.
     _riverBloc.dispatch(LoadRivers());
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
