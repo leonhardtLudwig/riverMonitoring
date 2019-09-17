@@ -19,7 +19,7 @@ class _AddNewDataState extends State<AddNewData> {
     _data['Dist'].add(dist);
     _data['Asse B'].add(asseB);
     _data['Notes'].add(notes);
-    print(_data);
+    //json.encode(_data);
     Navigator.of(context).pop();
   }
 

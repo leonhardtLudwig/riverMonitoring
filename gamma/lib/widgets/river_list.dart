@@ -13,6 +13,7 @@ class RiverList extends StatelessWidget {
       child:ListView.builder(
         itemCount: _rivers.length,
         itemBuilder: (ctx, index) {
+          print(_rivers.elementAt(index).toJson());
           return RiverCard(_rivers.elementAt(index));
         },
       ), 

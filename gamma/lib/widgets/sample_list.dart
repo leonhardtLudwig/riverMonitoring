@@ -28,6 +28,7 @@ class _SampleListState extends State<SampleList> {
       child: ListView.builder(
         itemCount: section.nS,
         itemBuilder: (context, index) {
+          //print(section.samples.elementAt(index).toJson());
           return SampleCard(index, section.samples.elementAt(index));
         },
       ),

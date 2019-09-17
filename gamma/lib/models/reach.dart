@@ -12,11 +12,25 @@ class Reach{
     firstTime = true;
     sections = [];
   }
-  /*void initSection(int index,int nS){
-    if(index<nSections){
-      sections.elementAt(index).nSample = nS;
-    }else{
-      return;
+
+
+  Map<String, dynamic> toJson() => _reachToJson(this);
+  Map<String, dynamic> _reachToJson(Reach instance) {
+    return <String, dynamic>{
+      'name': instance.name,
+      'nSections': instance.nSections,
+      'notes': instance.notes,
+      'firstTime': instance.firstTime,
+      'sections': _secToJSON(),
+      //'samples': instance.samples, //TO JSON
+      'river': instance.river, //TO JSON
+    };
+  }
+  List<Map<dynamic,dynamic>> _secToJSON(){
+    List<Map<dynamic,dynamic>> l = [];
+    for(int i = 0; i<sections.length; i++){
+      l.add(sections.elementAt(i).toJson());
     }
-  }*/
+    return l;
+  }
 }
