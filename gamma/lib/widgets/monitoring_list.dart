@@ -41,6 +41,7 @@ class _MonitoringListState extends State<MonitoringList> {
   }
 
   void newRiver(BuildContext ctx) {
+
     Navigator.of(ctx).pushReplacementNamed('/screens/new_river',arguments: prefix0.rivers );
   }
 

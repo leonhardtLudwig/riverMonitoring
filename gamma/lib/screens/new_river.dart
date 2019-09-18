@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gamma/main.dart';
 import 'package:intl/intl.dart';
+import 'package:sqflite/sqlite_api.dart';
 import '../models/river.dart';
 import '../models/reach.dart';
 
@@ -34,9 +36,33 @@ class _NewRiverState extends State<NewRiver> {
     });
   }
   
+  /*void _addRiver(BuildContext ctx,River river)async{
+    
+    int result = await databaseHelper.insertRiver(river);
+    count++;
+    if(result != 0){
+      //print(river.toMap());
+    }
+  }*/
+
+  /*void updateListView(List<River>r){
+    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+    dbFuture.then((database){
+      Future<List<River>> futureRivers = databaseHelper.getRiversList();
+      futureRivers.then((rivers){
+        setState(() {
+          r = rivers;
+        });
+      });
+    });
+  }*/
+
   void _submit(String name, DateTime date, int nReaches, String notes) {
     final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    rivers.add(new River(name,date,nReaches,notes));
+    River r = new River(name,date,nReaches,notes,[]);
+    
+    rivers.add(r);
+    //_addRiver(context,r);
     for(int i = 0; i<rivers.length;i++){
       for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
       rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),''));
