@@ -49,7 +49,7 @@ class _EditRiverState extends State<EditRiver> {
 
       for (int i = _river.reaches.length; i < nReaches; i++) {
         print('i.toString() ${i.toString()}');
-        _river.reaches.add(Reach((i + 1).toString(), 0, _river, ''));
+        _river.reaches.add(Reach((i + 1).toString(), 0, _river, '',true));
       }
     }
     _river.notes = notes == '' ? _river.notes : notes;

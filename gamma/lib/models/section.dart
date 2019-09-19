@@ -17,13 +17,13 @@ class Section {
   Map<String, dynamic> toJson() => _sectionToJson(this);
   Map<String, dynamic> _sectionToJson(Section instance) {
     return <String, dynamic>{
-      'name': instance.name,
-      'nS': instance.nS,
-      'notes': instance.notes,
-      'firstTime': instance.firstTime,
-      'samples': _samToJSON(),
+      '"name"': '"${instance.name}"',
+      '"nS"': instance.nS,
+      '"notes"': '"${instance.notes}"',
+      '"firstTime"': instance.firstTime,
+      '"samples"': _samToJSON(),
       //'samples': instance.samples, //TO JSON
-      'reach': instance.reach, //TO JSON
+      //'"reach"': instance.reach, //TO JSON
     };
   }
   List<Map<dynamic,dynamic>> _samToJSON(){

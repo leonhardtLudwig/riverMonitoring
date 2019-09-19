@@ -20,11 +20,11 @@ class Sample{
 
   Map<String, dynamic> _sampleToJson(Sample instance) {
     return <String, dynamic>{
-      'section':instance.section,//RICORDA IL TOJSON 
-      'name':instance.name,
-      'notes':instance.notes,
-      'firstTime':instance.firstTime,
-      'data':json.encode(instance.data),
+      //'"section"':instance.section,//RICORDA IL TOJSON 
+      '"name"':'"${instance.name}"',
+      '"notes"':'"${instance.notes}"',
+      '"firstTime"':instance.firstTime,
+      '"data"':json.encode(instance.data),
     };
   }
 

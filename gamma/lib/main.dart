@@ -3,8 +3,8 @@ import 'package:gamma/screens/info_reach.dart';
 import 'package:gamma/screens/new_monitoring_screen.dart';
 import 'package:gamma/widgets/river_list.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import './utils/database_helper.dart';
+import 'dart:convert';
+
 //models
 import './models/app_theme.dart';
 import './models/river.dart';
@@ -12,7 +12,7 @@ import './models/reach.dart';
 
 //widgets
 import './widgets/add_button.dart';
-import 'package:sqflite/sqflite.dart';
+
 
 //screens
 import './screens/new_river.dart';
@@ -28,7 +28,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //json.decode('{name: ciao, nReaches: 1, notes: weeee, date: 2019-09-19 11:28:29.039153, reaches: [{name: 1, nSections: 0, notes: , firstTime: true, sections: [], river: Instance of \'River\'}, {name: 2, nSections: 0, notes: , firstTime: true, sections: [], river: Instance of \'River\'}]}');
+    //rivers.add(River.fromMapObject(json.decode('{name: ciao, nReaches: 1, notes: weeee, date: 2019-09-19 11:28:29.039153, reaches: [{name: 1, nSections: 0, notes: , firstTime: true, sections: [], river: Instance of \'River\'}, {name: 2, nSections: 0, notes: , firstTime: true, sections: [], river: Instance of \'River\'}]}')));
+    /*
+    NOTE DI COSE DA NON METTERE NEI JSON
+    -INSTANCE OF
     
+    */
+    String riv = '{"name": "ciao zi", "nReaches": 1, "notes": "bb", "date": "2019-09-19 11:49:04.234596", "reaches": [{"name": "1", "nSections": 3, "notes": "", "notes":"test","firstTime": false, "sections": [{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]}]}]}';
+    rivers.add(River.fromMapObject(json.decode(riv)));
     return  MaterialApp(
         home: HomePage(),
         title: 'River Monitoring',
@@ -46,17 +54,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//DatabaseHelper databaseHelper = DatabaseHelper();
-List<River> rivers;
-int count = 0;
-/*List<River> rivers = [
+
+List<River> rivers = [
   new River(
     'Piave',
     DateTime.now(),
     2,
     'Questo è un test\nper vedere se\nle note funzionano',
+    []
   )
-];*/
+];
 
 
 
@@ -68,7 +75,7 @@ class HomePage extends StatefulWidget {
         rivers
             .elementAt(i)
             .reaches
-            .add(new Reach((j + 1).toString(), 0, rivers.elementAt(i), ''));
+            .add(new Reach((j + 1).toString(), 0, rivers.elementAt(i), '',true));
       }
     }}
   }
@@ -79,39 +86,19 @@ class HomePage extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePage> {
-  /*void updateListView(List<River>r){
-    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
-    dbFuture.then((database){
-      Future<List<River>> futureRivers = databaseHelper.getRiversList();
-      futureRivers.then((rivers){
-        setState(() {
-          r = rivers;
-        });
-      });
-    });
-  }*/
-  /*RiverBloc _riverBloc;
-
-   @override
-  void initState() {
-    super.initState();
-    _riverBloc = BlocProvider.of<RiverBloc>(context);
-    _riverBloc.dispatch(LoadRivers());
-  }*/
-
+ 
   @override
   Widget build(BuildContext context) {
     if(rivers == null){
       rivers = List<River>();
     }
-    updateListView(rivers);
     final appBar = AppBar(
       title: Text('River Monitoring'),
     );
     return Scaffold(
       appBar: appBar,
       body: RiverList(rivers),
-      floatingActionButton: AddButton(/*rivers*/),
+      floatingActionButton: AddButton(),
     );
   }
 }

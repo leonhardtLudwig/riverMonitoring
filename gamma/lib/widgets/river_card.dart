@@ -13,6 +13,7 @@ class RiverCard extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       child: Container(
         padding: EdgeInsets.all(10),
@@ -56,6 +57,7 @@ class RiverCard extends StatelessWidget {
             ),
           ),
           onTap: () {
+            print(_r.toJson());
             Navigator.of(context)
                 .pushNamed('/screens/info_river', arguments: _r);
           }, 

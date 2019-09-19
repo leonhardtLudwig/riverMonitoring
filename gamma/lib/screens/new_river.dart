@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gamma/main.dart';
 import 'package:intl/intl.dart';
-import 'package:sqflite/sqlite_api.dart';
 import '../models/river.dart';
 import '../models/reach.dart';
 
@@ -65,7 +63,7 @@ class _NewRiverState extends State<NewRiver> {
     //_addRiver(context,r);
     for(int i = 0; i<rivers.length;i++){
       for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
-      rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),''));
+      rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),'',true));
       }
     }
     Navigator.of(context).pop();

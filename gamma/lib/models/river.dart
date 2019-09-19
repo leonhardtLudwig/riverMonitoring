@@ -1,6 +1,7 @@
 import './reach.dart';
+import 'dart:convert';
 class River{
-  int _id;
+  
 
   String name;
   DateTime date;
@@ -9,25 +10,19 @@ class River{
   String notes;
   River(this.name,this.date,this.nReaches,this.notes,this.reaches);
 
-  int get id{
-    return _id;
-  }
-  //Map<String, dynamic> toJson() => _riverToJson(this);
+  
+  Map<String, dynamic> toJson() => _riverToJson(this);
 
-  /*Map<String, dynamic> _riverToJson(River instance) {
-    if(_id=null){
-      
-    }
+  Map<String, dynamic> _riverToJson(River instance) {
+    
     return <String, dynamic>{
-      'id':_id,
-      'name': instance.name,
-      'nReaches': instance.nReaches,
-      'notes': instance.notes,
-      'date': instance.date,
-      'reaches': _reaToJSON(),
-      //'samples': instance.samples, //TO JSON
+      '"name"': '"${instance.name}"',
+      '"nReaches"': instance.nReaches,
+      '"notes"': '"${instance.notes}"',
+      '"date"': '"${instance.date}"',
+      '"reaches"': _reaToJSON(),
     };
-  }*/
+  }
 
   /*static River fromMap(Map<String, dynamic> map) {
     return River(
@@ -47,26 +42,33 @@ class River{
     return l;
   }
 
-  Map<String,dynamic> toMap(){
-    var map = Map<String,dynamic> ();
-    if(_id!=null){
-      map['id']=_id;
-    }
-    map['name']=name;
-    map['date']=date.toString();
-    map['nReaches']=nReaches;
-    map['notes']=notes;
-    //map['reaches']=_reaToJSON();
-    return map;
-  }
   
   River.fromMapObject(Map<String,dynamic>map){
-    this._id=map['id'];
     this.name=map['name'];
-    this.date=map['date'];
+    this.date=DateTime.parse(map['date']);
     this.nReaches=map['nReaches'];
     this.notes=map['notes'];
-    this.reaches=map['reaches'];
+    this.reaches=reaList(map['reaches']);
+    /*for(int i = 0; i<this.reaches.length;i++){
+      for(int j = 0; j<this.reaches.elementAt(i).sections.length;j++){
+      this.reaches.elementAt(i).sections.add(Reach.fromMapObject(map));
+      }
+    }*/
   }
   
+  Reach mapToReach(Map el, int index){
+    print(el.length);
+    return new Reach(el[index]['name'],el[index]['nSections'],this,el[index]['notes'],el[index]['firstTime']);
+  }
+
+  List<Reach> reaList(List<dynamic> l){
+    List<Reach> reaList = [];
+    final Map parsed = l.asMap();
+    Reach signUp;
+    for(int i = 0; i<nReaches;i++){
+      signUp = mapToReach(parsed,i);
+      reaList.add(signUp);
+    }
+    return reaList;
+  }
 }
