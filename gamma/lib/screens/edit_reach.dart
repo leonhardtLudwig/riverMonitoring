@@ -25,7 +25,7 @@ class _EditReachState extends State<EditReach> {
 
       for (int i = _reach.sections.length; i < nSec; i++) {
         print('i.toString() ${i.toString()}');
-        _reach.sections.add(Section((i+1).toString(), 0, _reach,''));
+        _reach.sections.add(Section((i+1).toString(), 0, _reach,'',true));
       }
     }
     _reach.notes = notes == '' ? _reach.notes : notes;

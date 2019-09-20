@@ -11,9 +11,7 @@ class Sample{
     'Notes':[],
   };
   
-  Sample(this.name,this.section,this.notes){
-    firstTime = true;
-  }
+  Sample(this.name,this.section,this.notes,this.firstTime);
   //json.encode(_data);
 
   Map<String, dynamic> toJson() => _sampleToJson(this);

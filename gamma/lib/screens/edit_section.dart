@@ -22,10 +22,10 @@ class _EditSectionState extends State<EditSection> {
     _section.name = name == '' ? _section.name : name;
     
     if (nSam != 0) {
-      _section.nS = nSam;
+      _section.nSample = nSam;
       for (int i = _section.samples.length; i < nSam; i++) {
         //print('i.toString() ${i.toString()}');
-        _section.samples.add(Sample((i+1).toString(), _section,''));
+        _section.samples.add(Sample((i+1).toString(), _section,'',true));
       }
     }else{_section.nSample = 0;}
     _section.notes = notes == '' ? _section.notes : notes;

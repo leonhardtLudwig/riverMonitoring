@@ -1,3 +1,5 @@
+import 'package:gamma/models/section.dart';
+import 'package:gamma/models/sample.dart';
 import './reach.dart';
 import 'dart:convert';
 class River{
@@ -57,13 +59,35 @@ class River{
   }
   
   Reach mapToReach(Map el, int index){
-    print(el.length);
-    return new Reach(el[index]['name'],el[index]['nSections'],this,el[index]['notes'],el[index]['firstTime']);
+    //print(el.length);
+    Reach r = new Reach(el[index]['name'],el[index]['nSections'],this,el[index]['notes'],el[index]['firstTime']);
+    final sec = el[index]['sections'];
+    List sam; 
+    Section section;
+    Sample sample;
+    for(int i = 0; i<r.nSections;i++){
+      
+      section = new Section(sec[i]['name'], sec[i]['nSample'], r, sec[i]['notes'], sec[i]['firstTime']);
+      sam = sec[i]['samples'];
+      
+      for(int j = 0; j<section.nSample;j++){
+        
+        sample = sam.length!=0?new Sample(sam[j]['name'], section, sam[j]['notes'], sam[j]['firstTime']):null;
+        if(sample==null){
+          section.samples.add(new Sample((j + 1).toString(), section, '',true));
+        }else{
+          section.samples.add(sample);
+          }
+      }
+      r.sections.add(section);
+    }
+    return r;
   }
 
   List<Reach> reaList(List<dynamic> l){
     List<Reach> reaList = [];
     final Map parsed = l.asMap();
+    
     Reach signUp;
     for(int i = 0; i<nReaches;i++){
       signUp = mapToReach(parsed,i);

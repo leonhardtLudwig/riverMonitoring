@@ -11,9 +11,11 @@ class InfoSection extends StatelessWidget {
     /*for(int i = 0; i<section.samples.length;i++){
         section.samples.add(new Sample((i+1).toString(),  section,''));
     }*/
-    
-    for(int i = 0; i<section.nS;i++){
-      section.samples.add(new Sample((i+1).toString(),  section,''));
+
+    if (section.samples.length == section.nSample) {
+      for (int i = 0; i < section.nSample; i++) {
+        section.samples.add(new Sample((i + 1).toString(), section, '', true));
+      }
     }
 
     return Scaffold(
@@ -38,7 +40,7 @@ class InfoSection extends StatelessWidget {
                   child: ListView(
                     children: <Widget>[
                       InfoText('Name', section.name),
-                      InfoText('Samples', section.nS.toString()),
+                      InfoText('Samples', section.nSample.toString()),
                       InfoText('Notes', section.notes),
                     ],
                   ),

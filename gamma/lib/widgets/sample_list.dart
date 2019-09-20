@@ -11,7 +11,7 @@ class SampleList extends StatefulWidget {
     /*
     *MI RACCOMANDO CONTROLLA QUA
     */ 
-    for (int i = section.samples.length; i > section.nS; i--) {
+    for (int i = section.samples.length; i > section.nSample; i--) {
       section.samples.removeAt(i - 1);
     }
   }
@@ -26,7 +26,7 @@ class _SampleListState extends State<SampleList> {
     return Container(
       height: MediaQuery.of(context).size.height*0.6,
       child: ListView.builder(
-        itemCount: section.nS,
+        itemCount: section.nSample,
         itemBuilder: (context, index) {
           //print(section.samples.elementAt(index).toJson());
           return SampleCard(index, section.samples.elementAt(index));

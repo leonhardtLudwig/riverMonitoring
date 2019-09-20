@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     -INSTANCE OF
     
     */
-    String riv = '{"name": "ciao zi", "nReaches": 1, "notes": "bb", "date": "2019-09-19 11:49:04.234596", "reaches": [{"name": "1", "nSections": 3, "notes": "", "notes":"test","firstTime": false, "sections": [{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nS":1,"notes":"test","firstTime":false,"samples":[]}]}]}';
+    String riv = '{"name": "ciao zi", "nReaches": 1, "notes": "bb", "date": "2019-09-19 11:49:04.234596", "reaches": [{"name": "1", "nSections": 3, "notes": "", "notes":"test","firstTime": false, "sections": [{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]}]}]}';
     rivers.add(River.fromMapObject(json.decode(riv)));
     return  MaterialApp(
         home: HomePage(),

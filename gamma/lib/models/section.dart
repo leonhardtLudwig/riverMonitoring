@@ -4,13 +4,12 @@ import './reach.dart';
 class Section {
   String name;
   int nSample; //NON TOCCARE, FUNZIONA COSì COM'è. NON USARE
-  int nS;
+  //int nS;
   String notes;
   bool firstTime;
   List<Sample> samples;
   Reach reach;
-  Section(this.name, this.nSample, this.reach, this.notes) {
-    firstTime = true;
+  Section(this.name, this.nSample, this.reach, this.notes,this.firstTime) {
     samples = [];
   }
 
@@ -18,7 +17,7 @@ class Section {
   Map<String, dynamic> _sectionToJson(Section instance) {
     return <String, dynamic>{
       '"name"': '"${instance.name}"',
-      '"nS"': instance.nS,
+      '"nS"': instance.nSample,
       '"notes"': '"${instance.notes}"',
       '"firstTime"': instance.firstTime,
       '"samples"': _samToJSON(),

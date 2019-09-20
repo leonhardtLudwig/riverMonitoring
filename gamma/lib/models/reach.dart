@@ -43,7 +43,7 @@ class Reach{
   }
   Section mapToSection(Map el, int index){
     //print(this.river==null);
-    return new Section(el[index]['name'],el[index]['nS'],this,el[index]['notes']);
+    return new Section(el[index]['name'],el[index]['nS'],this,el[index]['notes'],el[index]['firstTime']);
   }
   List<Section> secList(List<dynamic> l){
     List<Section> reaList = [];
