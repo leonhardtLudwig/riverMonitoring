@@ -35,8 +35,10 @@ class MyApp extends StatelessWidget {
     -INSTANCE OF
     
     */
-    String riv = '{"name": "ciao zi", "nReaches": 1, "notes": "bb", "date": "2019-09-19 11:49:04.234596", "reaches": [{"name": "1", "nSections": 3, "notes": "", "notes":"test","firstTime": false, "sections": [{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]}]}]}';
+    String riv = '{"name": "ciao zi", "nReaches": 1, "notes": "bb", "date": "2019-09-19 11:49:04.234596", "reaches": [{"name": "1", "nSections": 3, "notes": "", "notes":"test","firstTime": false, "sections": [{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[{"name":"1","notes":"testbrah","firstTime":false,"data":{"Dist":["we"],"Asse B":["zio"],"Notes":["come va"]}}]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]},{"name":"1","nSample":1,"notes":"test","firstTime":false,"samples":[]}]}]}';
+    String riv2 = '{"name": "ciaoaoaoaoao", "nReaches": 2, "notes": "xnxj", "date": "2019-09-20 11:59:33.426294", "reaches": [{"name": "wee", "nSections": 2, "notes": "bdjs", "firstTime": false, "sections": [{"name": "1", "nS": 2, "notes": "", "firstTime": false, "samples": [{"name": "1", "notes": "", "firstTime": false, "data": {"Dist":["ciao"],"Asse B":["jjfjdej"],"Notes":["hhhh"]}}, {"name": "2", "notes": "", "firstTime": true, "data": {"Dist":[],"Asse B":[],"Notes":[]}}]}, {"name": "2", "nS": 0, "notes": "", "firstTime": true, "samples": []}]}, {"name": "2", "nSections": 0, "notes": "", "firstTime": true, "sections": []}]}';
     rivers.add(River.fromMapObject(json.decode(riv)));
+    rivers.add(River.fromMapObject(json.decode(riv2)));
     return  MaterialApp(
         home: HomePage(),
         title: 'River Monitoring',

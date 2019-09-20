@@ -5,14 +5,17 @@ import '../widgets/sample_card.dart';
 Section section;
 
 class SampleList extends StatefulWidget {
-  
-  SampleList(Section s){
+  SampleList(Section s) {
     section = s;
     /*
     *MI RACCOMANDO CONTROLLA QUA
-    */ 
-    for (int i = section.samples.length; i > section.nSample; i--) {
-      section.samples.removeAt(i - 1);
+    */
+    if (section.nSample != null) {
+      for (int i = section.samples.length; i > section.nSample; i--) {
+        section.samples.removeAt(i - 1);
+      }
+    }else{
+      section.nSample=0;
     }
   }
 
@@ -24,7 +27,7 @@ class _SampleListState extends State<SampleList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height*0.6,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: ListView.builder(
         itemCount: section.nSample,
         itemBuilder: (context, index) {

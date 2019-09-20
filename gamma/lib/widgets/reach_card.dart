@@ -20,9 +20,9 @@ class ReachCard extends StatelessWidget {
                 margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  'Reach ${(index + 1).toString()}',
+                  'Reach ${reach.name==(index + 1).toString()?(index + 1).toString():reach.name}',
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: (MediaQuery.of(context).size.width*0.06)/reach.name.length),
+                      color: Theme.of(context).primaryColor, fontSize: reach.name.length>=4?((MediaQuery.of(context).size.width*0.18)/reach.name.length):(MediaQuery.of(context).size.width*0.06)),
                 ),
               ),
               Container(

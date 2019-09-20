@@ -18,9 +18,9 @@ class SampleCard extends StatelessWidget {
                 margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  'Sample ${(index + 1).toString()}',
+                  'Sample ${sample.name==(index + 1).toString()?(index + 1).toString():sample.name}',
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: 25),
+                      color: Theme.of(context).primaryColor, fontSize: sample.name.length>=4?((MediaQuery.of(context).size.width*0.17)/sample.name.length):(MediaQuery.of(context).size.width*0.06)),
                 ),
               ),
               Container(

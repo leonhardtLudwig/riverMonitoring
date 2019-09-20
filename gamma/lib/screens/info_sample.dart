@@ -20,12 +20,21 @@ class InfoSample extends StatelessWidget {
           child: Card(
             elevation: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: MediaQuery.of(context).size.height * 0.8,
               margin:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.009),
               child: ListView(
                 children: <Widget>[
                   InfoText('Name', sample.name),
+
+                  InfoText('Morphological Unit', sample.morpho),
+                  InfoText('Length out of P.C', sample.length!=null?sample.length.toString():'NO CHAIN'),
+                  InfoText('Depth of burial', sample.depth!=null?sample.depth.toString():'NO CHAIN'),
+                  InfoText('GPS Altitude', sample.altitude),
+                  InfoText('Verified  process', sample.process),
+                  InfoText('Rilevamento', sample.rilevamento),
+                  InfoText('Colore', sample.color!=null?sample.color:'No color'),
+
                   InfoText('Notes', sample.notes),
                 ],
               ),

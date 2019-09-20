@@ -22,9 +22,9 @@ class SectionCard extends StatelessWidget {
                 margin: EdgeInsets.only(left:MediaQuery.of(context).size.width*0.03),
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  'Section ${(index + 1).toString()}',
+                  'Section ${section.name==(index + 1).toString()?(index + 1).toString():section.name}',
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: 25),
+                      color: Theme.of(context).primaryColor, fontSize: section.name.length>=5?((MediaQuery.of(context).size.width*0.21)/section.name.length):(MediaQuery.of(context).size.width*0.06)),
                 ),
               ),
               Container(
