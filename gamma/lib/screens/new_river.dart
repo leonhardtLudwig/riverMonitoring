@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gamma/db_controller.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
 import '../models/reach.dart';
+import '../main.dart';
 
 class NewRiver extends StatefulWidget {
   @override
@@ -34,36 +36,20 @@ class _NewRiverState extends State<NewRiver> {
     });
   }
   
-  /*void _addRiver(BuildContext ctx,River river)async{
-    
-    int result = await databaseHelper.insertRiver(river);
-    count++;
-    if(result != 0){
-      //print(river.toMap());
-    }
-  }*/
-
-  /*void updateListView(List<River>r){
-    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
-    dbFuture.then((database){
-      Future<List<River>> futureRivers = databaseHelper.getRiversList();
-      futureRivers.then((rivers){
-        setState(() {
-          r = rivers;
-        });
-      });
-    });
-  }*/
 
   void _submit(String name, DateTime date, int nReaches, String notes) {
     final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    River r = new River(name,date,nReaches,notes,[]);
+    River r = new River(riverCounter++,name,date,nReaches,notes,[]);
     
     rivers.add(r);
+    DBController.db.insertRiver(r);
     //_addRiver(context,r);
     for(int i = 0; i<rivers.length;i++){
-      for(int j = 0;j<rivers.elementAt(0).nReaches;j++){
-      rivers.elementAt(i).reaches.add(new Reach((j+1).toString(), 0, rivers.elementAt(i),'',true));
+      for(int j = 0;j<rivers.elementAt(i).nReaches;j++){
+      Reach reach =new Reach(rivers.elementAt(i).reaches.length,(j+1).toString(), 0,rivers.elementAt(i).id, '',true);
+      DBController.db.insertReach(reach);
+      rivers.elementAt(i).reaches.add(reach);
+      
       }
     }
     Navigator.of(context).pop();

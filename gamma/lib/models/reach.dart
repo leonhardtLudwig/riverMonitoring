@@ -1,6 +1,8 @@
 import './section.dart';
 import './river.dart';
 class Reach{
+  int _id;
+  int river_id;
   String name;
   int nSections;
   String notes;
@@ -8,11 +10,24 @@ class Reach{
   List<Section>sections;
   River river;
   bool firstTime;
-  Reach(this.name,this.nSections,this.river,this.notes,this.firstTime){
+  Reach(this._id,this.name,this.nSections,this.river_id,this.notes,this.firstTime){
     //firstTime = true;
     sections = [];
   }
 
+  int get id{
+    return _id;
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'name': name,
+      'nSections': nSections,
+      'river_id':river_id,
+      'notes': notes,
+      'firstTime':firstTime?1:0,
+    };
+  }
 
   Map<String, dynamic> toJson() => _reachToJson(this);
   Map<String, dynamic> _reachToJson(Reach instance) {
@@ -35,11 +50,13 @@ class Reach{
   }
 
   Reach.fromMapObject(Map<String,dynamic>map){
+    this._id=map['id'];
+    this.river_id=map['river_id'];
     this.name=map['name'];
     this.nSections=map['nSections'];
     this.notes=map['notes'];
-    this.firstTime=map['firstTime'];
-    this.sections=secList(map['sections']);
+    this.firstTime=map['firstTime']==1?true:false;
+    //this.sections=secList(map['sections']);
   }
   Section mapToSection(Map el, int index){
     //print(this.river==null);

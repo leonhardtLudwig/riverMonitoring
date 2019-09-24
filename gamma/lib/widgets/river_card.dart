@@ -57,7 +57,7 @@ class RiverCard extends StatelessWidget {
             ),
           ),
           onTap: () {
-            print(_r.toJson());
+            //print(_r.toJson());
             Navigator.of(context)
                 .pushNamed('/screens/info_river', arguments: _r);
           }, 

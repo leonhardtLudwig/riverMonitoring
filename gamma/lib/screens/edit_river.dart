@@ -1,3 +1,4 @@
+import 'package:gamma/db_controller.dart';
 import 'package:gamma/models/reach.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -49,7 +50,9 @@ class _EditRiverState extends State<EditRiver> {
 
       for (int i = _river.reaches.length; i < nReaches; i++) {
         print('i.toString() ${i.toString()}');
-        _river.reaches.add(Reach((i + 1).toString(), 0, _river, '',true));
+        Reach reach = Reach(_river.reaches.length,(i + 1).toString(), 0,_river.id , '',true);
+        DBController.db.insertReach(reach);
+        _river.reaches.add(reach);
       }
     }
     _river.notes = notes == '' ? _river.notes : notes;

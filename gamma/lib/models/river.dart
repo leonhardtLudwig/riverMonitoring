@@ -1,15 +1,15 @@
 import 'package:gamma/models/section.dart';
 import 'package:gamma/models/sample.dart';
 import './reach.dart';
-import 'dart:convert';
 
 class River {
+  int _id;
   String name;
   DateTime date;
   int nReaches;
   List<Reach> reaches;
   String notes;
-  River(this.name, this.date, this.nReaches, this.notes, this.reaches);
+  River(this._id,this.name, this.date, this.nReaches, this.notes, this.reaches);
 
   Map<String, dynamic> toJson() => _riverToJson(this);
 
@@ -23,15 +23,18 @@ class River {
     };
   }
 
-  /*static River fromMap(Map<String, dynamic> map) {
-    return River(
-      map['name'],
-      map['date'],
-      map['nReaches'],
-      map['notes'],
-      map['reaches'],
-    );
-  }*/
+  int get id{
+    return _id;
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'name': name,
+      'date': date.toIso8601String(),
+      'nReaches': nReaches,
+      'notes': notes,
+    };
+  }
 
   List<Map<dynamic, dynamic>> _reaToJSON() {
     List<Map<dynamic, dynamic>> l = [];
@@ -56,7 +59,7 @@ class River {
 
   Reach mapToReach(Map el, int index) {
     //print(el.length);
-    Reach r = new Reach(el[index]['name'], el[index]['nSections'], this,
+    Reach r = new Reach(index,el[index]['name'], el[index]['nSections'], this.id,
         el[index]['notes'], el[index]['firstTime']);
     final sec = el[index]['sections'];
     List sam;

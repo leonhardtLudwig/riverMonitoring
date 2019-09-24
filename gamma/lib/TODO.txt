@@ -1,3 +1,1 @@
-####-Mettere il first time all'interno del costruttore (così può leggere json di corsi già esistenti)
--controllare conversione json di tutte le classi 
--controllare il parsing delle sections nella classe reach (non viene invocato il metodo dalla classe)
+- CONTROLLARE DATABASE
