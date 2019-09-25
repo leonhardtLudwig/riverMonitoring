@@ -32,7 +32,7 @@ class _SampleDataTableScreenState extends State<SampleDataTableScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddNewData(_sample.data),
+              builder: (context) => AddNewData(_sample),
             ),
           );
         },

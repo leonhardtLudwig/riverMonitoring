@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gamma/models/sample.dart';
 
 Map<String, List> _data;
+Sample s;
 
 class AddNewData extends StatefulWidget {
-  AddNewData(Map<String, List> d) {
-    _data = d;
+  AddNewData(Sample sample) {
+    s = sample;
+    _data = sample.data;
   }
   @override
   _AddNewDataState createState() => _AddNewDataState();
@@ -19,6 +22,7 @@ class _AddNewDataState extends State<AddNewData> {
     _data['Dist'].add(dist);
     _data['Asse B'].add(asseB);
     _data['Notes'].add(notes);
+    s.infoCounter++;
     //json.encode(_data);
     Navigator.of(context).pop();
   }
@@ -51,6 +55,7 @@ class _AddNewDataState extends State<AddNewData> {
                 alignment: Alignment.centerRight,
                 child: FlatButton(
                   onPressed: () {
+
                     _submit(distController.text, asseBController.text,notesController.text);
                   },
                   child: Text(

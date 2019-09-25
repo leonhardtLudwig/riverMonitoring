@@ -25,12 +25,11 @@ class DBController {
       "CREATE TABLE sections(id INTEGER PRIMARY KEY,reach_id INTEGER, name TEXT, nSample INTEGER, firstTime BIT, notes TEXT)";
   String sampleTable =
       "CREATE TABLE samples(id INTEGER PRIMARY KEY,section_id INTEGER, name TEXT, morpho TEXT, length REAL, depth REAL, altitude TEXT, process TEXT, rilevamento TEXT, color TEXT, firstTime BIT, notes TEXT)";
-  //String sampleDataTable = "CREATE TABLE sampleData(id INTEGER PRIMARY KEY, sample_id INTEGER,)";
+  String sampleDataTable =
+      "CREATE TABLE sampleData(id INTEGER PRIMARY KEY, sample_id INTEGER, dist TEXT, asseB TEXT, notes TEXT)";
 
   static Database _database;
-  /*Database get database{
-    return _database;
-  }*/
+
   Future<Database> get database async {
     if (_database != null) return _database;
 
@@ -56,6 +55,10 @@ class DBController {
       );
       await db.execute(
         sampleTable,
+      );
+
+      await db.execute(
+        sampleDataTable,
       );
     });
   }
@@ -85,7 +88,7 @@ class DBController {
   }
 
   //CREATE SECTION
-  /*Future<void> insertSection(Section section) async {
+  Future<void> insertSection(Section section) async {
     final Database db = await database;
 
     await db.insert(
@@ -93,10 +96,10 @@ class DBController {
       section.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-  }*/
+  }
 
   //CREATE SAMPLE
-  /*Future<void> insertSample(Sample sample) async {
+  Future<void> insertSample(Sample sample) async {
     final Database db = await database;
 
     await db.insert(
@@ -104,7 +107,18 @@ class DBController {
       sample.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-  }*/
+  }
+
+  //CREATE DATA
+  Future<void> insertData(Map<String, String> map) async {
+    final Database db = await database;
+
+    await db.insert(
+      'sampleData',
+      map,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
 
   /*
    * READ METHODS
@@ -140,10 +154,61 @@ class DBController {
         maps[i]['name'],
         maps[i]['nSections'],
         maps[i]['river_id'],
-        //maps[i],
         maps[i]['notes'],
         maps[i]['firstTime'] == 1 ? true : false,
       );
+    });
+  }
+
+  //READ SECTIONS
+  Future<List<Section>> sections() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('sections');
+
+    return List.generate(maps.length, (i) {
+      return Section(
+        maps[i]['id'],
+        maps[i]['name'],
+        maps[i]['nSample'],
+        maps[i]['reach_id'],
+        maps[i]['notes'],
+        maps[i]['firstTime'] == 1 ? true : false,
+      );
+    });
+  }
+
+  //READ SAMPLES
+  Future<List<Sample>> samples() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('samples');
+
+    return List.generate(maps.length, (i) {
+      return Sample(
+        maps[i]['id'],
+        maps[i]['name'],
+        maps[i]['section_id'],
+        maps[i]['notes'],
+        maps[i]['firstTime'] == 1 ? true : false,
+      );
+    });
+  }
+
+  //READ DATAS
+  Future<List<Map<String,String>>> datas() async {
+    final Database db = await database;
+
+    final List<Map<String, dynamic>> maps = await db.query('sampleData');
+
+    return List.generate(maps.length, (i) {
+      Map m = new Map<String, String>();
+      m['id'] = maps[i]['id'];
+      m['sample_id'] = maps[i]['sample_id'];
+      m['dist'] = maps[i]['dist'];
+      m['asseB'] = maps[i]['asseB'];
+      m['notes'] = maps[i]['notes'];
+      return m;
     });
   }
 
@@ -162,6 +227,55 @@ class DBController {
     );
   }
 
+  //UPDATE REACH
+  Future<void> updateReach(Reach reach) async {
+    final db = await database;
+
+    await db.update(
+      'reaches',
+      reach.toMap(),
+      where: "id = ?",
+      whereArgs: [reach.id],
+    );
+  }
+
+  //UPDATE SECTION
+  Future<void> updateSection(Section section) async {
+    final db = await database;
+
+    await db.update(
+      'sections',
+      section.toMap(),
+      where: "id = ?",
+      whereArgs: [section.id],
+    );
+  }
+
+  //UPDATE SAMPLE
+  Future<void> updateSample(Sample sample) async {
+    final db = await database;
+
+    await db.update(
+      'samples',
+      sample.toMap(),
+      where: "id = ?",
+      whereArgs: [sample.id],
+    );
+  }
+
+  //UPDATE DATA
+  Future<void> updateDataSample(Map<String,String> map) async {
+    final db = await database;
+
+    await db.update(
+      'sampleData',
+      map,
+      where: "id = ?",
+      whereArgs: [map['id']],
+    );
+  }
+
+
   /*
    * DELETE METHODS
    */
@@ -176,41 +290,101 @@ class DBController {
     );
   }
 
-  /*
-   * GETTER METHODS
-   */
-  //GET RIVER
-  Future<River> getRiver(int id) async {
-    final Database db = await database;
-    List<Map> results = await db.query("rivers",
-    //"CREATE TABLE rivers(id INTEGER PRIMARY KEY, name TEXT, date TEXT, nReaches INTEGER, notes TEXT)"
-        columns: ["id", "name", "date", "nReaches","notes"],
-        where: 'id = ?',
-        whereArgs: [id]);
+  //DELETE REACH
+  Future<void> deleteReach(int id) async {
+    final db = await database;
 
-    if (results.length > 0) {
-      return new River.fromMapObject(results.first);
-    }
-    return null;
+    await db.delete(
+      'reaches',
+      where: "id = ?",
+      whereArgs: [id],
+    );
   }
-  //GET REACH
-  getReachByRiverID(int rivId) async {
-    final Database db = await database;
-    /*db.query(table)
-    List<Map> results = await db.query("reaches",
-    //"CREATE TABLE reaches(id INTEGER PRIMARY KEY,river_id INTEGER, name TEXT, nSections INTEGER, firstTime BIT, notes TEXT)";
-        columns: ["id", "river_id", "name", "nSections","firstTime","notes"],
-        where: 'river_id = ?',
-        whereArgs: [rivId]);
 
-    if (results.length > 0) {
-      return new Reach.fromMapObject(results.first);
-    }
-    return null;*/
-    
-    var res = await db.query("reaches",where:'river_id = ?',whereArgs: [rivId] );
-    List<Reach> list =
-        res.isNotEmpty ? res.map((c) => Reach.fromMapObject(c)).toList() : [];
-    return list;
+  //DELETE SECTION
+  Future<void> deleteSection(int id) async {
+    final db = await database;
+
+    await db.delete(
+      'sections',
+      where: "id = ?",
+      whereArgs: [id],
+    );
   }
+
+  //DELETE SAMPLE
+  Future<void> deleteSample(int id) async {
+    final db = await database;
+
+    await db.delete(
+      'samples',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+  //DELETE REACH
+  Future<void> deleteDataSample(int id) async {
+    final db = await database;
+
+    await db.delete(
+      'sampleData',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+
+  //DOWNLOAD RIVERS LOCALLY
+  Future<List<River>> downloadRivers() async {
+    List<River> rivList = await rivers();
+    List<Reach> reaList = await reaches();
+    List<Section> secList = await sections();
+    List<Sample> samList = await samples();
+    final dataList = await datas();
+    Reach rea;
+    Section sec;
+    Sample sam;
+
+    for (int riverIndex = 0; riverIndex < rivList.length; riverIndex++) {
+      int reachLength = rivList.elementAt(riverIndex)!=null?rivList.elementAt(riverIndex).nReaches:0;
+      for (int reachIndex = 0; reachIndex < reachLength; reachIndex++) {
+        if (reaList.elementAt(reachIndex).river_id ==
+            rivList.elementAt(riverIndex).id) {
+          rea = reaList.elementAt(reachIndex);
+        }
+        int sectionLength = rea!=null?rea.nSections:0;
+        for (int sectionIndex = 0;
+            sectionIndex < sectionLength;
+            sectionIndex++) {
+          if (rea != null &&
+              secList.elementAt(sectionIndex).reach_id == rea.id) {
+            sec = secList.elementAt(sectionIndex);
+          }
+          int sampleLength = sec!=null?sec.nSample:0;
+          for (int sampleIndex = 0; sampleIndex < sampleLength; sampleIndex++) {
+            if (sec != null &&
+                samList.elementAt(sampleIndex).section_id == sec.id) {
+              sam = samList.elementAt(sampleIndex);
+            }
+            for (int i = 0; i < dataList.length; i++) {
+              
+              if (int.parse(dataList.elementAt(i)['sample_id']) == sam.id) {
+                sam.data['Dist'].add(dataList.elementAt(i)['dist']);
+                sam.data['Asse B'].add(dataList.elementAt(i)['asseB']);
+                sam.data['Notes'].add(dataList.elementAt(i)['notes']);
+              }
+            }
+            if(sam!=null)sec.samples.add(sam);
+          }
+          if(sec!=null)rea.sections.add(sec);
+        }
+        
+        if(rea!=null)rivList.elementAt(riverIndex).reaches.add(rea);
+      }
+      
+    }
+    return rivList;
+  }
+
 }

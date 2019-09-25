@@ -1,6 +1,7 @@
 import './section.dart';
 import './river.dart';
 class Reach{
+  static int counter = 0;
   int _id;
   int river_id;
   String name;
@@ -11,6 +12,7 @@ class Reach{
   River river;
   bool firstTime;
   Reach(this._id,this.name,this.nSections,this.river_id,this.notes,this.firstTime){
+    
     //firstTime = true;
     sections = [];
   }
@@ -60,7 +62,7 @@ class Reach{
   }
   Section mapToSection(Map el, int index){
     //print(this.river==null);
-    return new Section(el[index]['name'],el[index]['nS'],this,el[index]['notes'],el[index]['firstTime']);
+    return new Section(el[index]['id'],el[index]['name'],el[index]['nS'],this.id,el[index]['notes'],el[index]['firstTime']);
   }
   List<Section> secList(List<dynamic> l){
     List<Section> reaList = [];

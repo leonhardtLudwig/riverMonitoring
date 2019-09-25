@@ -14,7 +14,7 @@ class InfoSection extends StatelessWidget {
 
     if (section.samples.length == section.nSample) {
       for (int i = 0; i < section.nSample; i++) {
-        section.samples.add(new Sample((i + 1).toString(), section, '', true));
+        section.samples.add(new Sample(Sample.counter++,(i + 1).toString(), section.id, '', true));
       }
     }
 

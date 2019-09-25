@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gamma/db_controller.dart';
 import '../models/sample.dart';
 
 Sample _sample;
@@ -34,6 +35,7 @@ class _EditSampleState extends State<EditSample> {
     _sample.altitude = altitude;
     _sample.process = process;
     _sample.rilevamento = rilevamento;
+    DBController.db.updateSample(_sample);
     Navigator.of(context).pop();
   }
 
@@ -45,6 +47,7 @@ class _EditSampleState extends State<EditSample> {
     _sample.altitude = altitude;
     _sample.process = process;
     _sample.rilevamento = rilevamento;
+    DBController.db.updateSample(_sample);
     Navigator.of(context).pop();
   }
 

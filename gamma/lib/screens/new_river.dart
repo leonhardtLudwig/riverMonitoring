@@ -3,7 +3,6 @@ import 'package:gamma/db_controller.dart';
 import 'package:intl/intl.dart';
 import '../models/river.dart';
 import '../models/reach.dart';
-import '../main.dart';
 
 class NewRiver extends StatefulWidget {
   @override
@@ -35,26 +34,24 @@ class _NewRiverState extends State<NewRiver> {
       }
     });
   }
-  
 
   void _submit(String name, DateTime date, int nReaches, String notes) {
     final rivers = ModalRoute.of(context).settings.arguments as List<River>;
-    River r = new River(riverCounter++,name,date,nReaches,notes,[]);
-    
+    River r = new River(River.counter++, name, date, nReaches, notes, []);
+
     rivers.add(r);
     DBController.db.insertRiver(r);
     //_addRiver(context,r);
-    for(int i = 0; i<rivers.length;i++){
-      for(int j = 0;j<rivers.elementAt(i).nReaches;j++){
-      Reach reach =new Reach(rivers.elementAt(i).reaches.length,(j+1).toString(), 0,rivers.elementAt(i).id, '',true);
-      DBController.db.insertReach(reach);
-      rivers.elementAt(i).reaches.add(reach);
-      
+    for (int i = 0; i < rivers.length; i++) {
+      for (int j = 0; j < rivers.elementAt(i).nReaches; j++) {
+        Reach reach = new Reach(rivers.elementAt(i).reaches.length,
+            (j + 1).toString(), 0, rivers.elementAt(i).id, '', true);
+        DBController.db.insertReach(reach);
+        rivers.elementAt(i).reaches.add(reach);
       }
     }
     Navigator.of(context).pop();
     //print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
-   
   }
 
   @override

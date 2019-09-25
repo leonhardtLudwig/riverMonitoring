@@ -12,9 +12,9 @@ class RiverList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*for(int i = 0; i<_rivers.length; i++){
+    for(int i = 0; i<_rivers.length; i++){
       print(_rivers.elementAt(i).toJson());
-    }*/
+    }
     return Container(
       child:ListView.builder(
         itemCount: _rivers.length,

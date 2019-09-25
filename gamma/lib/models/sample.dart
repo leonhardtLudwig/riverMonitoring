@@ -1,6 +1,15 @@
 import 'dart:convert';
 import './section.dart';
 class Sample{
+  static int counter = 0;
+  int _id;
+  int section_id;
+
+  int get id{
+    return _id;
+  }
+
+  int infoCounter;
   Section section;
 
   String name;
@@ -20,8 +29,39 @@ class Sample{
     'Notes':[],
   };
   
-  Sample(this.name,this.section,this.notes,this.firstTime);
+  Sample(this._id,this.name,this.section_id,this.notes,this.firstTime){
+    infoCounter = 0;
+  }
   //json.encode(_data);
+
+  /*
+   * String name;
+  String morpho;
+  double length;
+  double depth;
+  String altitude;
+  String process;
+  String rilevamento;
+  String color;
+  String notes;
+   */
+Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'name': name,
+      'section_id':section_id,
+      'morpho':morpho,
+      'length':length,
+      'depth':depth,
+      'altitude':altitude,
+      'process':process,
+      'rilevamento':rilevamento,
+      'color':color,
+      'notes': notes,
+      'firstTime':firstTime?1:0,
+    };
+  }
+
 
   Map<String, dynamic> toJson() => _sampleToJson(this);
 

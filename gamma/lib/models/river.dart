@@ -3,6 +3,7 @@ import 'package:gamma/models/sample.dart';
 import './reach.dart';
 
 class River {
+  static int counter = 0;
   int _id;
   String name;
   DateTime date;
@@ -65,26 +66,21 @@ class River {
     List sam;
     Section section;
     Sample sample;
-    var data = {
-      'Dist': [],
-      'Asse B': [],
-      'Notes': [],
-    };
 
     for (int i = 0; i < r.nSections; i++) {
-      section = new Section(sec[i]['name'], sec[i]['nSample'], r,
+      section = new Section(sec[i]['id'],sec[i]['name'], sec[i]['nSample'], r.id,
           sec[i]['notes'], sec[i]['firstTime']);
       sam = sec[i]['samples'];
 
       if (section.nSample != null) {
         for (int j = 0; j < section.nSample; j++) {
           sample = sam.length != 0
-              ? new Sample(
-                  sam[j]['name'], section, sam[j]['notes'], sam[j]['firstTime'])
+              ? new Sample(Sample.counter++,
+                  sam[j]['name'], section.id, sam[j]['notes'], sam[j]['firstTime'])
               : null;
           if (sample == null) {
             section.samples
-                .add(new Sample((j + 1).toString(), section, '', true));
+                .add(new Sample(Sample.counter++,(j + 1).toString(), section.id, '', true));
           } else {
             sample.morpho = sam[j]['morpho'];
             sample.length = sam[j]['length'];
@@ -116,4 +112,7 @@ class River {
     }
     return reaList;
   }
+
+  
+
 }

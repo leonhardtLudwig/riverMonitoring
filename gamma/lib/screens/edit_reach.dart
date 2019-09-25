@@ -1,3 +1,4 @@
+import 'package:gamma/db_controller.dart';
 import 'package:gamma/models/section.dart';
 import 'package:flutter/material.dart';
 import '../models/reach.dart';
@@ -19,17 +20,22 @@ class _EditReachState extends State<EditReach> {
   final String oldNotes = _reach == null ? '' : _reach.notes;
 
   void _submit(String name, int nSec, String notes) {
+    Section sec;
     _reach.name = name == '' ? _reach.name : name;
     if (nSec != 0) {
       _reach.nSections = nSec;
 
       for (int i = _reach.sections.length; i < nSec; i++) {
         print('i.toString() ${i.toString()}');
-        _reach.sections.add(Section((i+1).toString(), 0, _reach,'',true));
+        sec = Section(Section.counter++,(i+1).toString(), 0, _reach.id,'',true);
+        _reach.sections.add(sec);
+        
       }
     }
     _reach.notes = notes == '' ? _reach.notes : notes;
     _reach.firstTime = false;
+    if(sec!=null)DBController.db.insertSection(sec);
+    DBController.db.updateReach(_reach);
     Navigator.of(context).pop();
   }
 

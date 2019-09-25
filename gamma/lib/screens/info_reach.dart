@@ -1,4 +1,3 @@
-import 'package:gamma/models/section.dart';
 import 'package:flutter/material.dart';
 import '../models/reach.dart';
 import '../widgets/info_text.dart';

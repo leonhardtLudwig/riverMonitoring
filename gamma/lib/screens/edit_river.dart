@@ -43,20 +43,23 @@ class _EditRiverState extends State<EditRiver> {
   }
 
   void _submit(String name, DateTime date, int nReaches, String notes) {
+    Reach reach;
     _river.name = name == '' ? _river.name : name;
     _river.date = date == null ? _river.date : date;
     if (nReaches != 0) {
       _river.nReaches = nReaches;
 
       for (int i = _river.reaches.length; i < nReaches; i++) {
-        print('i.toString() ${i.toString()}');
-        Reach reach = Reach(_river.reaches.length,(i + 1).toString(), 0,_river.id , '',true);
-        DBController.db.insertReach(reach);
+        //print('i.toString() ${i.toString()}');
+        reach =
+            Reach(Reach.counter++, (i + 1).toString(), 0, _river.id, '', true);
+
         _river.reaches.add(reach);
       }
     }
     _river.notes = notes == '' ? _river.notes : notes;
-
+    if (reach != null) DBController.db.insertReach(reach);
+    DBController.db.updateRiver(_river);
     Navigator.of(context).pop();
   }
 
@@ -68,7 +71,7 @@ class _EditRiverState extends State<EditRiver> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(MediaQuery.of(context).size.width*0.02),
+          margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
           child: Column(
             children: <Widget>[
               TextField(
