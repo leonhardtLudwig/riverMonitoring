@@ -17,9 +17,9 @@ class _DynamicTableState extends State<DynamicTable> {
     for(int i = 0; i<_data['Dist'].length;i++){
       //dR.add(DataCell(Text(_data['Dist'].elementAt(i))));
       dR.add(DataRow(cells: <DataCell>[
-        DataCell(Text(_data['Dist'].elementAt(i))),
-        DataCell(Text(_data['Asse B'].elementAt(i))),
-        DataCell(Text(_data['Notes'].elementAt(i))),
+        DataCell(Text(_data['Dist'].elementAt(i)!=null?_data['Dist'].elementAt(i):"NO DATA")),
+        DataCell(Text(_data['Asse B'].elementAt(i)!=null?_data['Asse B'].elementAt(i):"NO DATA")),
+        DataCell(Text(_data['Notes'].elementAt(i)!=null?_data['Notes'].elementAt(i):"NO DATA")),
       ]));
     }
     return dR;

@@ -24,17 +24,22 @@ class _EditSampleState extends State<EditSample> {
   String dropDownValueProcess = 'AWS';
   String dropDownValueRilevamento = 'Completo';
   bool chain = false;
+
   void _submitWithChain(String name, String notes, String morpho, double length,
       double depth, String altitude, String process,String rilevamento,String color) {
     _sample.name = name == '' ? _sample.name : name;
     _sample.notes = notes == '' ? _sample.notes : notes;
-    _sample.firstTime = false;
-    _sample.length = length;
-    _sample.depth = depth;
-    _sample.morpho = morpho;
-    _sample.altitude = altitude;
-    _sample.process = process;
-    _sample.rilevamento = rilevamento;
+    _sample.length = length < 0 ? _sample.length : length;
+    _sample.depth = length < 0 ? _sample.length : length;
+    _sample.morpho = morpho == '' ? _sample.morpho : morpho;
+    _sample.altitude = altitude == '' ? _sample.altitude : altitude;
+    _sample.process = process == '' ? _sample.process : process;
+    _sample.rilevamento = rilevamento == '' ? _sample.rilevamento : rilevamento;
+    _sample.color = color == '' ? _sample.color : color;
+    if(_sample.firstTime){
+      _sample.firstTime = false;
+      DBController.db.insertSample(_sample);
+      }
     DBController.db.updateSample(_sample);
     Navigator.of(context).pop();
   }
@@ -42,12 +47,17 @@ class _EditSampleState extends State<EditSample> {
   void _sumbmitNoChain(String name, String notes, String morpho,String altitude, String process,String rilevamento,String color) {
     _sample.name = name == '' ? _sample.name : name;
     _sample.notes = notes == '' ? _sample.notes : notes;
-    _sample.firstTime = false;
-    _sample.morpho = morpho;
-    _sample.altitude = altitude;
-    _sample.process = process;
-    _sample.rilevamento = rilevamento;
+    _sample.morpho = morpho == '' ? _sample.morpho : morpho;
+    _sample.altitude = altitude == '' ? _sample.altitude : altitude;
+    _sample.process = process == '' ? _sample.process : process;
+    _sample.rilevamento = rilevamento == '' ? _sample.rilevamento : rilevamento;
+    _sample.color = color == '' ? _sample.color : color;
+    if(_sample.firstTime){
+      _sample.firstTime = false;
+      DBController.db.insertSample(_sample);
+      }
     DBController.db.updateSample(_sample);
+    
     Navigator.of(context).pop();
   }
 
@@ -198,8 +208,8 @@ class _EditSampleState extends State<EditSample> {
                           nameController.text,
                           notesController.text,
                           morphoUnitController.text,
-                          double.parse(lengthController.text),
-                          double.parse(dobController.text),
+                          lengthController.text==''?-1:double.parse(lengthController.text),
+                          dobController.text==''?-1:double.parse(dobController.text),
                           gpsAltitudeController.text,
                           dropDownValueProcess,dropDownValueRilevamento,colorController.text);
                     } else {

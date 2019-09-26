@@ -20,19 +20,19 @@ import './screens/info_section.dart';
 import './screens/info_sample.dart';
 
 void main() => runApp(MyApp());
+bool _justStarted = true;
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     DBController.db.initDB();
-    DBController.db.downloadRivers().then((rivs){
-      for(int i = 0; i<rivs.length;i++){
+    DBController.db.downloadRivers().then((rivs) {
+      for (int i = 0; i < rivs.length; i++) {
         rivers.add(rivs.elementAt(i));
         River.counter++;
       }
     });
-    
+
     return MaterialApp(
       home: HomePage(),
       title: 'River Monitoring',
@@ -53,35 +53,7 @@ class MyApp extends StatelessWidget {
 List<River> rivers = [];
 
 class HomePage extends StatefulWidget {
-  HomePage() {
-    
-    //rivers = DBController.db.rivers((r){});
-/*
-    DBController.db.rivers().then((r) {
-      List<Reach> listReach;
-      for (int i = 0; i < r.length; i++) {
-        DBController.db.getReachByRiverID(r.elementAt(i).id).then((List<Reach>re){
-          for(int j = 0; j<re.length;j++){
-            listReach.add(re.elementAt(i));
-          }
-        });
-        r.elementAt(i).reaches=listReach;
-        rivers.add(r.elementAt(i));
-        //rivers.elementAt(i).reaches.add(reach);
-        //print(rivers.elementAt(i).id);
-      }
-      riverCounter = r.length;
-    });*/
-
-    /*if(rivers!=null){for (int i = 0; i < rivers.length; i++) {
-      for (int j = 0; j < rivers.elementAt(0).nReaches; j++) {
-        rivers
-            .elementAt(i)
-            .reaches
-            .add(new Reach((j + 1).toString(), 0, rivers.elementAt(i), '',true));
-      }
-    }}*/
-  }
+  HomePage();
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -89,22 +61,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    /*if(rivers == null){
-      //rivers = List<River>();
-      DBController.db.rivers().then((r){
-      for(int i = 0; i<r.length;i++){
-        rivers.add(r.elementAt(i));
-      }
-      river_counter = r.length;
-    });
-    }*/
+    
     final appBar = AppBar(
       title: Text('River Monitoring'),
     );
-    return Scaffold(
-      appBar: appBar,
-      body: RiverList(rivers),
-      floatingActionButton: AddButton(),
-    );
+    return !_justStarted
+        ? Scaffold(
+            appBar: appBar,
+            body: RiverList(rivers),
+            floatingActionButton: AddButton(),
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: Center(
+              child: Container(
+                child: FlatButton(
+                  color: Theme.of(context).accentColor,
+                  child: Text('Start',style: TextStyle(color: Colors.white),),
+                  onPressed: () {
+                    setState(() {
+                     _justStarted = false; 
+                    });
+                  },
+                ),
+              ),
+            ),
+          );
   }
 }

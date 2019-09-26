@@ -9,7 +9,7 @@ class Sample{
     return _id;
   }
 
-  int infoCounter;
+  static int infoCounter = 0;
   Section section;
 
   String name;
@@ -27,11 +27,11 @@ class Sample{
     'Dist':[],
     'Asse B':[],
     'Notes':[],
+    'sample_id':[],
+    'id':[],
   };
   
-  Sample(this._id,this.name,this.section_id,this.notes,this.firstTime){
-    infoCounter = 0;
-  }
+  Sample(this._id,this.name,this.section_id,this.notes,this.firstTime);
   //json.encode(_data);
 
   /*
@@ -46,7 +46,7 @@ class Sample{
   String notes;
    */
 Map<String, dynamic> toMap() {
-    return {
+    final m = {
       'id': _id,
       'name': name,
       'section_id':section_id,
@@ -60,6 +60,7 @@ Map<String, dynamic> toMap() {
       'notes': notes,
       'firstTime':firstTime?1:0,
     };
+    return m;
   }
 
 
@@ -68,7 +69,16 @@ Map<String, dynamic> toMap() {
   Map<String, dynamic> _sampleToJson(Sample instance) {
     return <String, dynamic>{
       //'"section"':instance.section,//RICORDA IL TOJSON 
+      '"id"':'"${instance.id}"',
       '"name"':'"${instance.name}"',
+      '"section_id"':'"${instance.section_id}"',
+      '"morpho"':'"${instance.morpho}"',
+      '"length"':'"${instance.length}"',
+      '"depth"':'"${instance.depth}"',
+      '"altitude"':'"${instance.altitude}"',
+      '"process"':'"${instance.process}"',
+      '"rilevamento"':'"${instance.rilevamento}"',
+      '"color"':'"${instance.color}"',
       '"notes"':'"${instance.notes}"',
       '"firstTime"':instance.firstTime,
       '"data"':json.encode(instance.data),

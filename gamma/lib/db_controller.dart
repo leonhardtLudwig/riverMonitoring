@@ -185,26 +185,34 @@ class DBController {
     final List<Map<String, dynamic>> maps = await db.query('samples');
 
     return List.generate(maps.length, (i) {
-      return Sample(
+      Sample s = new Sample(
         maps[i]['id'],
         maps[i]['name'],
         maps[i]['section_id'],
         maps[i]['notes'],
         maps[i]['firstTime'] == 1 ? true : false,
       );
+      s.morpho =maps[i]['morpho'];
+      s.process=maps[i]['process'];
+      s.rilevamento=maps[i]['rilevamento'];
+      s.depth=maps[i]['depth'];
+      s.altitude =maps[i]['altitude'];
+      s.color=maps[i]['color'];
+      
+      return s;
     });
   }
 
   //READ DATAS
-  Future<List<Map<String,String>>> datas() async {
+  Future<List<Map<String, String>>> datas() async {
     final Database db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('sampleData');
 
     return List.generate(maps.length, (i) {
       Map m = new Map<String, String>();
-      m['id'] = maps[i]['id'];
-      m['sample_id'] = maps[i]['sample_id'];
+      m['id'] = maps[i]['id'].toString();
+      m['sample_id'] = maps[i]['sample_id'].toString();
       m['dist'] = maps[i]['dist'];
       m['asseB'] = maps[i]['asseB'];
       m['notes'] = maps[i]['notes'];
@@ -264,7 +272,7 @@ class DBController {
   }
 
   //UPDATE DATA
-  Future<void> updateDataSample(Map<String,String> map) async {
+  Future<void> updateDataSample(Map<String, String> map) async {
     final db = await database;
 
     await db.update(
@@ -274,7 +282,6 @@ class DBController {
       whereArgs: [map['id']],
     );
   }
-
 
   /*
    * DELETE METHODS
@@ -334,19 +341,62 @@ class DBController {
     );
   }
 
-
   //DOWNLOAD RIVERS LOCALLY
   Future<List<River>> downloadRivers() async {
-    List<River> rivList = await rivers();
-    List<Reach> reaList = await reaches();
-    List<Section> secList = await sections();
+    List<River> rivList = await rivers(); //da id più basso
+    List<Reach> reaList =
+        await reaches(); //da id più basso e al tempo stesso da river_id
+    // più alto
+    List<Section> secList = await sections(); //da id più basso in tutto
     List<Sample> samList = await samples();
     final dataList = await datas();
     Reach rea;
     Section sec;
     Sample sam;
+    River riv;
+    River.counter = rivList.length;
+    Reach.counter = reaList.length;
+    Section.counter = secList.length;
+    Sample.counter = samList.length;
+    Sample.infoCounter = dataList.length;
 
     for (int riverIndex = 0; riverIndex < rivList.length; riverIndex++) {
+      riv = rivList.elementAt(riverIndex);
+
+      for (int reaListIndex = 0;reaListIndex < reaList.length;reaListIndex++) {
+
+        rea = reaList.elementAt(reaListIndex);
+        if (rea.river_id == riv.id) {//corrisponde il reach al river?
+          for (int secListIndex = 0; secListIndex < secList.length; secListIndex++) {
+            sec = secList.elementAt(secListIndex);
+            if(sec.reach_id==rea.id){//corrisponde la section al reach?
+              for(int samListIndex = 0; samListIndex<samList.length;samListIndex++){
+                sam = samList.elementAt(samListIndex);
+                if(sam.section_id==sec.id){//corrisponde il sample alla section?
+
+                  for(int dataListIndex = 0;dataListIndex<dataList.length;dataListIndex++){
+                    if(int.parse(dataList.elementAt(dataListIndex)['sample_id'])==sam.id){
+                      sam.data['Dist'].add(dataList.elementAt(dataListIndex)['dist']);
+                      sam.data['Asse B'].add(dataList.elementAt(dataListIndex)['asseB']);
+                      sam.data['Notes'].add(dataList.elementAt(dataListIndex)['notes']);
+                      sam.data['sample_id'].add(dataList.elementAt(dataListIndex)['sample_id']);
+                      sam.data['id'].add(dataList.elementAt(dataListIndex)['id']);
+                    }
+                  }
+                  sec.samples.add(sam);//sample corrisposto alla section
+                }
+              }
+              rea.sections.add(sec);//section corrisposta al reach
+            }
+            
+          }
+          riv.reaches.add(rea);//reach corrisposto al river
+        }
+        
+      }
+    }
+    return rivList;
+    /*for (int riverIndex = 0; riverIndex < rivList.length; riverIndex++) {
       int reachLength = rivList.elementAt(riverIndex)!=null?rivList.elementAt(riverIndex).nReaches:0;
       for (int reachIndex = 0; reachIndex < reachLength; reachIndex++) {
         if (reaList.elementAt(reachIndex).river_id ==
@@ -384,7 +434,6 @@ class DBController {
       }
       
     }
-    return rivList;
+    return rivList;*/
   }
-
 }

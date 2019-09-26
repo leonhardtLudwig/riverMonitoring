@@ -27,13 +27,14 @@ class _EditSectionState extends State<EditSection> {
       for (int i = _section.samples.length; i < nSam; i++) {
         //print('i.toString() ${i.toString()}');
         sam = Sample(Sample.counter++,(i+1).toString(), _section.id,'',true);
+        if(sam!=null)DBController.db.insertSample(sam);
         _section.samples.add(sam);
         
       }
-    }else{_section.nSample = 0;}
+    }else if(_section.firstTime){_section.nSample = 0;}
     _section.notes = notes == '' ? _section.notes : notes;
     _section.firstTime = false;
-    if(sam!=null)DBController.db.insertSample(sam);
+    
     DBController.db.updateSection(_section);
     Navigator.of(context).pop();
   }

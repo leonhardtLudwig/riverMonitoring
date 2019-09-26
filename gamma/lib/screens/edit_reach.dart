@@ -28,13 +28,14 @@ class _EditReachState extends State<EditReach> {
       for (int i = _reach.sections.length; i < nSec; i++) {
         print('i.toString() ${i.toString()}');
         sec = Section(Section.counter++,(i+1).toString(), 0, _reach.id,'',true);
+        if(sec!=null)DBController.db.insertSection(sec);
         _reach.sections.add(sec);
         
       }
     }
     _reach.notes = notes == '' ? _reach.notes : notes;
     _reach.firstTime = false;
-    if(sec!=null)DBController.db.insertSection(sec);
+    //if(sec!=null)DBController.db.insertSection(sec);
     DBController.db.updateReach(_reach);
     Navigator.of(context).pop();
   }

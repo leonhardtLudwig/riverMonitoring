@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gamma/db_controller.dart';
 import 'package:gamma/models/sample.dart';
 
 Map<String, List> _data;
@@ -22,7 +23,16 @@ class _AddNewDataState extends State<AddNewData> {
     _data['Dist'].add(dist);
     _data['Asse B'].add(asseB);
     _data['Notes'].add(notes);
-    s.infoCounter++;
+    _data['sample_id'].add(s.id);
+    _data['id'].add((Sample.infoCounter++).toString());
+    final dbData = {
+      'dist':_data['Dist'].elementAt(_data['Dist'].length-1).toString(),
+      'asseB':_data['Asse B'].elementAt(_data['Asse B'].length-1).toString(),
+      'notes':_data['Notes'].elementAt(_data['Notes'].length-1).toString(),
+      'sample_id':_data['sample_id'].elementAt(_data['sample_id'].length-1).toString(),
+      'id':_data['id'].elementAt(_data['id'].length-1).toString(),
+    };
+    DBController.db.insertData(dbData);
     //json.encode(_data);
     Navigator.of(context).pop();
   }

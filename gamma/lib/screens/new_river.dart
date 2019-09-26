@@ -39,17 +39,25 @@ class _NewRiverState extends State<NewRiver> {
     final rivers = ModalRoute.of(context).settings.arguments as List<River>;
     River r = new River(River.counter++, name, date, nReaches, notes, []);
 
-    rivers.add(r);
-    DBController.db.insertRiver(r);
+    
+    //DBController.db.insertRiver(r);
     //_addRiver(context,r);
-    for (int i = 0; i < rivers.length; i++) {
+    /*for (int i = 0; i < rivers.length; i++) {
       for (int j = 0; j < rivers.elementAt(i).nReaches; j++) {
         Reach reach = new Reach(rivers.elementAt(i).reaches.length,
             (j + 1).toString(), 0, rivers.elementAt(i).id, '', true);
         DBController.db.insertReach(reach);
         rivers.elementAt(i).reaches.add(reach);
       }
+    }*/
+    for(int i= 0;i<r.nReaches;i++){
+      Reach reach = new Reach(Reach.counter++,
+            (i + 1).toString(), 0, r.id, '', true);
+      DBController.db.insertReach(reach);      
+      r.reaches.add(reach);
     }
+    rivers.add(r);
+    DBController.db.insertRiver(r);
     Navigator.of(context).pop();
     //print(Navigator.of(context).pop(rivers.add(new River(name,date,nReaches,notes))));
   }
